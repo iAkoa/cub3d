@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/01/11 05:30:37 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/16 14:29:58 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ static void	p_startspawn(t_data *data, t_map *map)
 		if (map[i].z != EMPTY && map[i].z != FLOOR && map[i].z != WALL)
 		{
 			data->parsing.start_spawn = i;
-			data->draw.x_spawn = map[i].x;
-			data->draw.y_spawn = map[i].y;
-		if (map[i].z == EAST)
-			data->draw.teta = 0;
-		else if (map[i].z == NORTH)
-			data->draw.teta = 3 * M_PI_2;
-		else if (map[i].z == WEAST)
-			data->draw.teta = M_PI;
-		else if (map[i].z == SOUTH)
-				data->draw.teta = M_PI_2;
-		count++;
+			data->draw.posX = map[i].x;
+			data->draw.posY = map[i].y;
+			data->draw.ref_posX = data->draw.posX * data->draw.size_of_bloc;
+			data->draw.ref_posY = data->draw.posY * data->draw.size_of_bloc;
+			if (map[i].z == EAST)
+				data->draw.player_angle = 0;
+			else if (map[i].z == NORTH)
+				data->draw.player_angle = 3 * M_PI_2;
+			else if (map[i].z == WEAST)
+				data->draw.player_angle = M_PI;
+			else if (map[i].z == SOUTH)
+					data->draw.player_angle = M_PI_2;
+			count++;
 		}
 		i++;
 	}

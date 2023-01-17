@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 03:44:17 by pat               #+#    #+#             */
-/*   Updated: 2023/01/11 05:47:10 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/17 17:56:32 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,80 @@
 #include "dhook.h"
 #include "../draw/draw.h"
 
+# define LEFT 1
+# define RIGHT 2
+# define TOP 3
+# define BOTTOM 4
+
+int check_wall(t_data *data, int posX, int posY, int side)
+{
+	int		check;
+	char	*dst;
+	int		i;
+
+	i = 0;
+	if (side == LEFT)
+	{
+		check = posX;
+		while (check > 4)
+		{
+				// printf("test");
+			dst = data->window.addr + (posY * data->window.line_length
+					+ check * (data->window.bits_per_pixel / 8));
+			if (*(unsigned int *)dst == WALL_COLOR)
+				return(i);
+			check -= data->draw.size_of_bloc / 2;
+			i++;
+		}
+	}
+	else if (side == RIGHT)
+	{
+		check = posX;
+		while (check < data->draw.x_max_minimap)
+		{
+			dst = data->window.addr + (posY * data->window.line_length
+					+ check * (data->window.bits_per_pixel / 8));
+			if (*(unsigned int *)dst == WALL_COLOR)
+				return(i);
+			check += data->draw.size_of_bloc / 2;
+			i++;
+		}
+	}
+	else if (side == TOP)
+	{
+		check = posY;
+		while (check > 0)
+		{
+			dst = data->window.addr + (check * data->window.line_length
+					+ posX * (data->window.bits_per_pixel / 8));
+			if (*(unsigned int *)dst == WALL_COLOR)
+				return(i);
+			check -= data->draw.size_of_bloc / 2;
+			i++;
+		}
+	}
+	else if (side == BOTTOM)
+	{
+		check = posY;
+		while (check < data->draw.y_max_minimap)
+		{
+			// printf("test");
+			dst = data->window.addr + (check * data->window.line_length
+					+ posX * (data->window.bits_per_pixel / 8));
+			if (*(unsigned int *)dst == WALL_COLOR)
+				return(i);
+			// printf("*(unsigned int *)dst = %i\n", *(unsigned int *)dst);
+			check += data->draw.size_of_bloc / 2;
+			i++;
+		}
+	}
+	return (0);
+}
+
 void	ft_keyhook1(t_data *data, t_window win, t_map *map, int keycode)
 {
 	(void)map;
 	(void)data;
-
-	printf("keycode  %i\n", keycode);
 	if (keycode == ESC)
 	{
 		mlx_destroy_image(win.mlx_ptr, win.img);
@@ -27,23 +95,12 @@ void	ft_keyhook1(t_data *data, t_window win, t_map *map, int keycode)
 		gc_free_all(&data->track);
 		exit(0);
 	}
-	if (keycode == UP_ARROW)
-	{
-		data->draw.x_spawn_display++;
-		ft_keyhook_process(win);
-		d_minimap(data, data->draw, data->map2d);
-	}
-	if (keycode == DOWN_ARROW)
-	{
-		// ->map = ft_translation(w->map, 1);
-		ft_keyhook_process(win);
-		// ft_draw(data, map);
-	}
 	if (keycode == LEFT_ARROW)
 	{
-		// w->map = ft_translation(w->map, 4);
+		ft_my_pixel_clear(data);
+		data->draw.player_angle-= M_PI/50;
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
 }
 
@@ -55,21 +112,10 @@ void	ft_keyhook2(t_data *data, t_window win, t_map *map, int keycode)
 
 	if (keycode == RIGHT_ARROW)
 	{
-		// w->map = ft_translation(w->map, 3);
+		ft_my_pixel_clear(data);
+		data->draw.player_angle+= M_PI/50;
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
-	}
-	if (keycode == MORE || keycode == T)
-	{
-		// w->map = ft_zoom(w->map, 1, w);
-		ft_keyhook_process(win);
-		// ft_draw(data, map);
-	}
-	if (keycode == LESS || keycode == R)
-	{
-		// w->map = ft_zoom(w->map, -1, w);
-		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
 }
 
@@ -77,31 +123,39 @@ void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode)
 {
 	(void)map;
 	(void)data;
+	int check1;
+	int check2;
+	(void)check2;
+	check1 = 0;
+	check2 = 0;
 
-
-	if (keycode == ONE_NUM_PAD || keycode == Q)
+	if (keycode == W)
 	{
-		// w->map = ft_rotation(w->map, 1);
+		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, TOP);
+		check2 = check_wall(data, data->draw.posX_display, data->draw.posY_display, BOTTOM);
+		if(((check1 >= 5 || check1 == 0) && (check2 >= 5 || check2 == 0)))
+			data->draw.moove_mapY+=3;
+		else if(!data->draw.hit_top)
+			data->dhook.moove_spawn_y -= 3;
+		data->draw.hit_top = 0;
+		ft_my_pixel_clear(data);
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
-	if (keycode == TWO_NUM_PAD || keycode == W)
+	if (keycode == A)
 	{
-		// w->map = ft_rotation(w->map, 2);
+		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, LEFT);
+		check2 = check_wall(data, data->draw.posX_display, data->draw.posY_display, RIGHT);
+		printf("check1 = %i\n", check1);
+		printf("check2 = %i\n", check2);
+		if(((check1 >= 9 || check1 == 0) && (check2 >= 9 || check2 == 0)))
+			data->draw.moove_mapX+=3;
+		else if (!data->draw.hit_left)
+			data->dhook.moove_spawn_x-= 3;
+		data->draw.hit_left = 0;
+		ft_my_pixel_clear(data);
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
-	}
-	if (keycode == THREE_NUM_PAD || keycode == E)
-	{
-		// w->map = ft_rotation(w->map, 3);
-		ft_keyhook_process(win);
-		// ft_draw(data, map);
-	}
-	if (keycode == SIX_NUM_PAD || keycode == A)
-	{
-		// w->map = ft_rotation(w->map, -3);
-		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
 }
 
@@ -109,19 +163,40 @@ void	ft_keyhook4(t_data *data, t_window win, t_map *map, int keycode)
 {
 	(void)map;
 	(void)data;
-
-
-	if (keycode == FIVE_NUM_PAD || keycode == S)
+	int check1;
+	int check2;
+	(void)check2;
+	check1 = 0;
+	check2 = 0;
+	if (keycode == S)
 	{
-		// w->map = ft_rotation(w->map, -2);
+		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, BOTTOM);
+		check2 = check_wall(data, data->draw.posX_display, data->draw.posY_display, TOP);
+		printf("check1 = %i\n", check1);
+		printf("check2 = %i\n", check2);
+		if(((check1 >= 5 || check1 == 0) && (check2 >= 5 || check2 == 0)))
+			data->draw.moove_mapY-=3;
+		else if(!data->draw.hit_bottom)
+			data->dhook.moove_spawn_y+=3;
+		data->draw.hit_bottom = 0;
+		ft_my_pixel_clear(data);
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
-	if (keycode == FOUR_NUM_PAD || keycode == D)
+	if (keycode == D)
 	{
-		// w->map = ft_rotation(w->map, -1);
+		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, RIGHT);
+		check2 = check_wall(data, data->draw.posX_display, data->draw.posY_display, LEFT);
+		printf("check1 = %i\n", check1);
+		printf("check2 = %i\n", check2);
+		if(((check1 >= 9 || check1 == 0) && (check2 >= 9 || check2 == 0)))
+			data->draw.moove_mapX-=3;
+		else if (!data->draw.hit_right)
+			data->dhook.moove_spawn_x+=3;
+		data->draw.hit_right = 0;
+		ft_my_pixel_clear(data);
 		ft_keyhook_process(win);
-		// ft_draw(data, map);
+		d_minimap(data, data->draw, data->map2d);
 	}
 }
 

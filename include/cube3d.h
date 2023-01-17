@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/11 05:21:57 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/17 18:04:34 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_map		t_map;
 typedef struct s_parsing	t_parsing;
 typedef struct s_draw		t_draw;
 typedef struct s_dhook		t_dhook;
+typedef struct s_fix		t_fix;
 
 struct s_parsing
 {
@@ -65,18 +66,30 @@ struct s_window
 
 struct s_draw
 {
-	int		x_max_minimap;
-	int		y_max_minimap;
-	int	x_screen;
-	int y_screen;
-	int size_of_bloc;
-	int x;
-	int y;
-	int x_spawn;
-	int y_spawn;
-	int y_spawn_display;
-	int x_spawn_display;
-	double	teta;
+	int	x_max_minimap;
+	int	y_max_minimap;
+	int	x_display;
+	int y_display;
+	int	size_of_bloc;
+	int	x;
+	int	y;
+	double	posX;
+	double	posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	int	posY_display;
+	int	posX_display;
+	double	player_angle;
+	int	ref_posX;
+	int	ref_posY;
+	int moove_mapX;
+	int moove_mapY;
+	int	hit_top;
+	int	hit_bottom;
+	int	hit_left;
+	int	hit_right;
 };
 
 struct s_dhook
@@ -110,8 +123,21 @@ struct s_map
 };
 
 
+# define WALL_COLOR 0x00FFA500
+# define FLOOR_COLOR 0x00FFFFFE
+# define GRID_COLOR 0x0000002
+# define GRID_WALL_COLOR 0x00000001
+# define PLAYER_COLOR 0x00F00001
 
-# define ESC 53
+# define FIX_MAP_TOP 1
+# define FIX_MAP_BOT 2
+# define FIX_MAP_RIGHT 3
+# define FIX_MAP_LEFT 4
+
+# define HIT_TOP 1
+# define HIT_BOT 2
+# define HIT_LEFT 3
+# define HIT_RIGHT 4
 
 #define EMPTY 0
 #define FLOOR 1
@@ -120,6 +146,8 @@ struct s_map
 #define NORTH 4
 #define WEAST 5
 #define SOUTH 6
+
+# define ESC 53
 
 # define A 0
 # define B 11

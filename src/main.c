@@ -23,6 +23,7 @@ static int	ft_exit(void *param)
 	return (0);
 }
 
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -41,6 +42,8 @@ int	main(int ac, char **av)
 		return (0);
 	printf("parsing ok !\n");
 	d_minimap(&data, data.draw, data.map2d);
+	// 	printf("draw.x = %d\n",data.draw.x);
+	// printf("draw.y = %d\n", data.draw.y);
 	// int	i;
 	
 	// i  = 0;
@@ -69,7 +72,6 @@ int	main(int ac, char **av)
 	// 	}
 	// 	i++;
 	// }
-	mlx_put_image_to_window(data.window.mlx_ptr, data.window.win_ptr, data.window.img, 0, 0);
 	mlx_hook(data.window.win_ptr, 2, 1L << 0, ft_keyhook, &data);
 	mlx_hook(data.window.win_ptr, 17, 0, ft_exit, &data);
 	mlx_loop(data.window.mlx_ptr);

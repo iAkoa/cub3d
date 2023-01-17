@@ -6,12 +6,31 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:27:34 by pat               #+#    #+#             */
-/*   Updated: 2023/01/11 08:01:58 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/17 19:21:53 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 #include "draw.h"
+
+void	ft_my_pixel_clear(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < 1300)
+	{
+		y = 0;
+		while (y < 900)
+		{
+			ft_my_mlx_pixel_put(data, x, y, 0);
+			y++;
+		}
+		x++;
+	}
+}
+
 
 void drawLine(t_data *data, int x1, int y1, int x2, int y2) 
 {
@@ -24,7 +43,7 @@ void drawLine(t_data *data, int x1, int y1, int x2, int y2)
 	err /= 2;
 	while (1) 
 	{
-		if(!ft_my_mlx_pixel_put_tuning(data, x1, y1, 0x0000FF))
+		if(!ft_my_mlx_pixel_put_view(data, x1, y1,  PLAYER_COLOR))
 			break;
 		if (x1 == x2 && y1 == y2)
 			break;
@@ -40,74 +59,101 @@ void drawLine(t_data *data, int x1, int y1, int x2, int y2)
 	}
 }
 
-
-
-static void d_position(t_data *data, t_draw draw, int x, int y)
-{
-	int x_display;
-	int y_display;
+// void drawview(t_data *data, int x1, int y1, int x2, int y2) 
+// {
 	
-	x_display = 0;
-	y_display = 0;
+// }
 
-	if (x > draw.size_of_bloc * 0.35 && x <= draw.size_of_bloc / 1.65 && y > draw.size_of_bloc * 0.35 && y <= draw.size_of_bloc / 1.65)
+
+static void d_position(t_data *data, int posX, int posY)
+{
+	int posX_display;
+	int posY_display;
+
+	posX_display = posX - 5;
+	posY_display = posY - 5;
+	while (posX_display < posX + 5)
 	{
-		x_display = data->dhook.moove_spawn_x + x + draw.x_screen;
-		y_display = data->dhook.moove_spawn_y + y + draw.y_screen;
-		printf("draw.x_screen = %i\n", draw.x_screen);
-		ft_my_mlx_pixel_put(data, x_display, y_display, 0x0000FF00);
-		if (x == draw.size_of_bloc / 2 && y == draw.size_of_bloc / 2)
+		posY_display = posY - 5;
+		while (posY_display < posY + 5)
 		{
-			data->draw.x_spawn_display = data->dhook.moove_spawn_x  + x + draw.x_screen;
-			data->draw.y_spawn_display = data->dhook.moove_spawn_y  + y + draw.y_screen;
+			ft_my_mlx_pixel_put_player(data, posX_display, posY_display,  PLAYER_COLOR);
+			posY_display++;
 		}
+		posX_display++;
 	}
+	// while (x > draw.size_of_bloc * 0.35 && x <= draw.size_of_bloc / 1.65 && y > draw.size_of_bloc * 0.35 && y <= draw.size_of_bloc / 1.65)
 }
 
 static void d_bloc_minimap(t_data *data, t_draw draw, t_map **map)
 {
 	int x;
 	int	y;
-
+	int x_display;
+	int y_display;
+	
+	
 	y = 0;
-	while (y < draw.size_of_bloc && draw.y_screen < draw.y_max_minimap)
+	(void)x_display;
+	(void)y_display;
+	// printf("draw.x = %d\n", draw.x);
+	// printf("draw.y = %d\n", draw.y);
+	// printf("draw.sizeofbloc = %d\n", draw.size_of_bloc);
+	while (y < draw.size_of_bloc && draw.y_display < draw.y_max_minimap)
 	{
 		x = 0;
-		printf("draw.x_screen = %i\n", draw.x_screen);
-			printf("draw.y_screen = %i\n", draw.y_screen);
 		// 	printf("draw.size_of_bloc = %i\n", draw.size_of_bloc);
-		while (x < draw.size_of_bloc && draw.x_screen < draw.x_max_minimap)
+		y_display = y + draw.y_display;
+		while (x < draw.size_of_bloc && draw.x_display < draw.x_max_minimap)
 		{
-			if (x == 0 || y == 0)
-				ft_my_mlx_pixel_put(data, x + draw.x_screen, y + draw.y_screen, 0x00000000);
+			x_display = x + draw.x_display;
+			if ((x == 0 || y ==  0) && map[draw.y][draw.x].z == WALL)
+				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_WALL_COLOR);
+			else if (x == 0 || y == 0)
+				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_COLOR);
 			else if (map[draw.y][draw.x].z == WALL)
-				ft_my_mlx_pixel_put(data, x + draw.x_screen, y + draw.y_screen, 0x00F000FF);
+				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, WALL_COLOR);
 			else if (map[draw.y][draw.x].z != WALL && map[draw.y][draw.x].z != EMPTY)
-				ft_my_mlx_pixel_put(data,x + draw.x_screen, y + draw.y_screen, 0x00FFFFFF);
+				ft_my_mlx_pixel_put_minimap(data,x + draw.x_display, y + draw.y_display, FLOOR_COLOR);
 			if (map[draw.y][draw.x].z != WALL && map[draw.y][draw.x].z != EMPTY && map[draw.y][draw.x].z != FLOOR)
-				d_position(data, draw, x, y);
+				if (x == draw.size_of_bloc / 2 && y == draw.size_of_bloc / 2)
+				{
+					data->draw.posX_display = data->dhook.moove_spawn_x + x + draw.x_display - data->draw.moove_mapX;
+					data->draw.posY_display = data->dhook.moove_spawn_y + y + draw.y_display - data->draw.moove_mapY;
+				}
 			x++;
 		}
-		y++;
+		y++; 
 	}
 }
 void	d_minimap(t_data *data, t_draw draw, t_map **map)
 {
 	draw.y = 0;
+	data->draw.hit_bottom = 0;
+	data->draw.hit_top = 0;
+	data->draw.hit_left = 0;
+	data->draw.hit_right= 0;
+
+	printf("player pos X =  %i\n", data->draw.posX_display);
+	printf("player pos Y =  %i\n", data->draw.posY_display);
+	
+	draw.y_display = data->draw.moove_mapY;
 	while (draw.y < data->parsing.y_max)
 	{
 		draw.x = 0;
-		draw.x_screen = 0;
+		draw.x_display = data->draw.moove_mapX;
 		while (draw.x < map[draw.y][draw.x].x_max)
 		{
 			d_bloc_minimap(data, draw, map);
-			draw.x_screen += draw.size_of_bloc;
+			draw.x_display += draw.size_of_bloc;
 			draw.x++;
 		}
-		draw.y_screen += draw.size_of_bloc;
+		draw.y_display += draw.size_of_bloc;
 		draw.y++;
 	}
-	drawLine(data, data->draw.x_spawn_display, data->draw.y_spawn_display,
-		data->draw.x_spawn_display + 900 * (cos(draw.teta)), data->draw.y_spawn_display + 1300 * (sin(draw.teta)));
-	// d_view(data, data->draw.x_spawn_display, data->draw.y_spawn_display , 20);
+	d_position(data, data->draw.posX_display, data->draw.posY_display);
+	drawLine(data, data->draw.posX_display, data->draw.posY_display,
+		data->draw.posX_display + 900 * (cos(draw.player_angle)), data->draw.posY_display + 1300 * (sin(draw.player_angle)));
+	// d_view(data, data->draw.posX_display, data->draw.posY_display , 20);
+	mlx_put_image_to_window(data->window.mlx_ptr, data->window.win_ptr, data->window.img, 0, 0);
 }
