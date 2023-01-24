@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/11 05:19:18 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 		else if (line[x] == 'N')
 			map->z = NORTH;
 		else if (line[x] == 'W')
-			map->z = WEAST;
+			map->z = WEST;
 		else if (line[x] == 'S')
 			map->z = SOUTH;
 		else
@@ -72,6 +72,9 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 		// printf("pointeur map boucle while : %p\n", map);
 		map++;
 	}
+	if (x > data->draw.map_Xmax)
+		data->draw.map_Xmax = x;
+	data->draw.map_Ymax++;
 	x_max = (double)x;
 	x = 0;
 	while (x <= x_max)

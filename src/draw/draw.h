@@ -6,14 +6,14 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 07:59:32 by pat               #+#    #+#             */
-/*   Updated: 2023/01/16 16:50:31 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 13:45:14 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 
-void	draw(t_data *data, t_map *map);
+void	draw(t_data *data);
 void	ft_my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		ft_my_mlx_pixel_put_view(t_data *data, int x, int y, int color);
 int		ft_my_mlx_pixel_put_player(t_data *data, int x, int y, int color);

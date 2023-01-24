@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:31:30 by pat               #+#    #+#             */
-/*   Updated: 2023/01/06 23:29:52 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/22 03:46:54 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@ static void p_check_path(t_data *data, char *line, int checkpoint)
 	if (checkpoint == 0)
 	{
 		data->parsing.north_path =  line;
-		printf("data->parsing.north_path = %s\n", data->parsing.north_path);
+		// printf("data->parsing.north_path = %s\n", data->parsing.north_path);
 		// if (access(data->parsing.north_path, F_OK) == -1)
 			// error(data, "BAD PATH 1!");
 	}
 	if (checkpoint == 1)
 	{
 		data->parsing.south_path =  line;
-		printf("data->parsing.south_path = %s\n", data->parsing.south_path);
+		// printf("data->parsing.south_path = %s\n", data->parsing.south_path);
 		// if (access(data->parsing.south_path, F_OK) == -1)
 			// error(data, "BAD PATH 2!");
 	}
 	if (checkpoint == 2)
 	{
 		data->parsing.west_path =  line;
-		printf("data->parsing.west_path = %s\n", data->parsing.west_path);
+		// printf("data->parsing.west_path = %s\n", data->parsing.west_path);
 		// if (access(data->parsing.west_path, F_OK) == -1)
 			// error(data, "BAD PATH 3!");
 	}
 	if (checkpoint == 3)
 	{
 		data->parsing.east_path =  line;
-		printf("data->parsing.east_path = %s\n", data->parsing.east_path);
+		// printf("data->parsing.east_path = %s\n", data->parsing.east_path);
 		// if (access(data->parsing.east_path, F_OK) == -1)
 			// error(data, "BAD PATH 4!");
 	}

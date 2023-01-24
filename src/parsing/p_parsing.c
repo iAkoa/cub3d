@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/01/16 14:29:58 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	p_startspawn(t_data *data, t_map *map)
 			if (map[i].z == EAST)
 				data->draw.player_angle = 0;
 			else if (map[i].z == NORTH)
-				data->draw.player_angle = 3 * M_PI_2;
-			else if (map[i].z == WEAST)
+				data->draw.player_angle = -M_PI_2;
+			else if (map[i].z == WEST)
 				data->draw.player_angle = M_PI;
 			else if (map[i].z == SOUTH)
 					data->draw.player_angle = M_PI_2;
@@ -64,6 +64,8 @@ static void	p_parsing_color_sky(t_data *data, char *line)
 	p_color_sky_red(data, color_split[0]);
 	p_color_sky_green(data, color_split[1]);
 	p_color_sky_blue(data, color_split[2]);
+	data->parsing.s_color = (ft_atoi(color_split[0]) << 16) + (ft_atoi(color_split[1]) << 8)
+		+ ft_atoi(color_split[2]);
 }
 
 /*parsing floor color*/
@@ -81,6 +83,8 @@ static void	p_parsing_color_floor(t_data *data, char *line)
 	p_color_floor_red(data, color_split[0]);
 	p_color_floor_green(data, color_split[1]);
 	p_color_floor_blue(data, color_split[2]);
+	data->parsing.f_color = (ft_atoi(color_split[0]) << 16) + (ft_atoi(color_split[1]) << 8)
+		+ ft_atoi(color_split[2]);
 }
 
 /*parsing file*/
@@ -109,7 +113,7 @@ int	p_parsing(t_data *data, char *file)
 	// p_check_map(data, data->map);
 	p_startspawn(data, data->map);
 	p_convert_map_1d(data, data->map);
-	printf("i spawn start = %i\n", data->parsing.start_spawn);
+	// printf("i spawn start = %i\n", data->parsing.start_spawn); 
 	close(data->parsing.fd);
 	return (1);
 }

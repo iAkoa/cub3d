@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/17 18:04:34 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_parsing	t_parsing;
 typedef struct s_draw		t_draw;
 typedef struct s_dhook		t_dhook;
 typedef struct s_fix		t_fix;
+typedef struct s_engine		t_engine;
+typedef struct s_rayv		t_rayv;
+typedef struct s_rayh		t_rayh;
 
 struct s_parsing
 {
@@ -42,11 +45,13 @@ struct s_parsing
 	int	floor_red;
 	int floor_green;
 	int floor_blue;
+	int f_color;
+	int s_color;
 	char *east_path;
 	char *west_path;
 	char *south_path;
 	char *north_path;
-	int		start_spawn;
+	int	start_spawn;
 };
 
 struct s_window
@@ -90,6 +95,77 @@ struct s_draw
 	int	hit_bottom;
 	int	hit_left;
 	int	hit_right;
+	int size_playerxMax;;
+	int size_playerxMin;
+	int size_playeryMax;
+	int size_playeryMin;
+	int size_check;
+	int map_Xmax;
+	int map_Ymax;
+	int map_Xmin;
+	int map_Ymin;
+	int map_size;
+};
+
+struct s_rayv
+{
+	float	rx;
+	float	ry;
+	float	xo;
+	float	yo;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+};
+
+struct s_rayh
+{
+	float	rx;
+	float	ry;
+	float	xo;
+	float	yo;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+};
+struct s_engine
+{
+	t_rayv		ray_v;
+	t_rayh		ray_h;
+	int			test;
+	int			hit_wall;
+	int			v_check;
+	int			h_check;
+	int			dof_limit;
+	float		p2;
+	float		p3;
+	float		ra;
+	float		atan;
+	float		ntan;
+	float		ty_off;
+	float		lineo;
+	float		lineh;
+	float		x;
+	float		y;
+	float		z;
+	float		pa;
+	float		pdx;
+	float		pdy;
+	float		posx;
+	float		posy;
+	float		x1;
+	float		x2;
+	float		y1;
+	float		y2;
+	float		max;
+	float		bresenx;
+	float		breseny;
+	float		raylx;
+	float		rayly;
+	float		dist;
+	int			fd;
 };
 
 struct s_dhook
@@ -109,6 +185,10 @@ struct s_data
 	t_parsing	parsing;
 	t_draw		draw;
 	t_dhook		dhook;
+	t_engine	engine;
+	int			width;
+	int			lenght;
+	char		**map2d_;
 };
 
 struct s_map
@@ -126,7 +206,7 @@ struct s_map
 # define WALL_COLOR 0x00FFA500
 # define FLOOR_COLOR 0x00FFFFFE
 # define GRID_COLOR 0x0000002
-# define GRID_WALL_COLOR 0x00000001
+# define GRID_WALL_COLOR 0x00000003
 # define PLAYER_COLOR 0x00F00001
 
 # define FIX_MAP_TOP 1
@@ -144,7 +224,7 @@ struct s_map
 #define WALL 2
 #define EAST 3
 #define NORTH 4
-#define WEAST 5
+#define WEST 5
 #define SOUTH 6
 
 # define ESC 53

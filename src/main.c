@@ -15,6 +15,7 @@
 #include "draw/draw.h"
 #include "dhook/dhook.h"
 #include "parsing/parsing.h"
+#include "engine/engine.h"
 
 static int	ft_exit(void *param)
 {
@@ -32,16 +33,23 @@ int	main(int ac, char **av)
 
 	track = NULL;
 	map = NULL;
+	init_data(&data ,track, map);
 	init_window(&data);
 	init_parsing(&data);
-	init_data(&data ,track, map);
 	init_draw(&data);
 	data.ac = ac;
 	data.av = av;
 	if(!p_parsing(&data, av[1]))
 		return (0);
-	printf("parsing ok !\n");
+	init_engine(&data);
+	// printf("parsing ok !\n");
+	data.engine.posx = (data.draw.posX * 32) + 16;
+	data.engine.posy = (data.draw.posY * 32) + 16;
+	data.engine.pa = data.draw.player_angle;
+	draw_rays(&data, &data.engine);
 	d_minimap(&data, data.draw, data.map2d);
+	data.engine.fd = open ("/txt", O_WRONLY, 777);
+	printf("engine->fd = %i\n", data.engine.fd);
 	// 	printf("draw.x = %d\n",data.draw.x);
 	// printf("draw.y = %d\n", data.draw.y);
 	// int	i;
@@ -72,8 +80,9 @@ int	main(int ac, char **av)
 	// 	}
 	// 	i++;
 	// }
+	mlx_put_image_to_window(data.window.mlx_ptr, data.window.win_ptr, data.window.img, 0, 0);
 	mlx_hook(data.window.win_ptr, 2, 1L << 0, ft_keyhook, &data);
 	mlx_hook(data.window.win_ptr, 17, 0, ft_exit, &data);
-	mlx_loop(data.window.mlx_ptr);
+	// mlx_loop(data.window.mlx_ptr);
 	return (0);
 }

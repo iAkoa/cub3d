@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:27:34 by pat               #+#    #+#             */
-/*   Updated: 2023/01/17 19:21:53 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 13:23:44 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ static void d_bloc_minimap(t_data *data, t_draw draw, t_map **map)
 		while (x < draw.size_of_bloc && draw.x_display < draw.x_max_minimap)
 		{
 			x_display = x + draw.x_display;
-			if ((x == 0 || y ==  0) && map[draw.y][draw.x].z == WALL)
+			if (((x == 0 || y ==  0 || x == 1 || y == 1|| x == draw.size_of_bloc - 1 || y == draw.size_of_bloc - 1 || x == draw.size_of_bloc || y == draw.size_of_bloc))&& map[draw.y][draw.x].z == WALL)
 				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_WALL_COLOR);
-			else if (x == 0 || y == 0)
+			else if ((x == 0 || y ==  0 || x == 1 || y == 1|| x == draw.size_of_bloc - 1 || y == draw.size_of_bloc - 1 || x == draw.size_of_bloc || y == draw.size_of_bloc))
 				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_COLOR);
 			else if (map[draw.y][draw.x].z == WALL)
 				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, WALL_COLOR);
@@ -118,6 +118,7 @@ static void d_bloc_minimap(t_data *data, t_draw draw, t_map **map)
 			if (map[draw.y][draw.x].z != WALL && map[draw.y][draw.x].z != EMPTY && map[draw.y][draw.x].z != FLOOR)
 				if (x == draw.size_of_bloc / 2 && y == draw.size_of_bloc / 2)
 				{
+					
 					data->draw.posX_display = data->dhook.moove_spawn_x + x + draw.x_display - data->draw.moove_mapX;
 					data->draw.posY_display = data->dhook.moove_spawn_y + y + draw.y_display - data->draw.moove_mapY;
 				}
@@ -134,8 +135,8 @@ void	d_minimap(t_data *data, t_draw draw, t_map **map)
 	data->draw.hit_left = 0;
 	data->draw.hit_right= 0;
 
-	printf("player pos X =  %i\n", data->draw.posX_display);
-	printf("player pos Y =  %i\n", data->draw.posY_display);
+	// printf("player pos X =  %i\n", data->draw.posX_display);
+	// printf("player pos Y =  %i\n", data->draw.posY_display);
 	
 	draw.y_display = data->draw.moove_mapY;
 	while (draw.y < data->parsing.y_max)
@@ -150,10 +151,10 @@ void	d_minimap(t_data *data, t_draw draw, t_map **map)
 		}
 		draw.y_display += draw.size_of_bloc;
 		draw.y++;
+		data->draw.size_check = 0;
 	}
 	d_position(data, data->draw.posX_display, data->draw.posY_display);
 	drawLine(data, data->draw.posX_display, data->draw.posY_display,
 		data->draw.posX_display + 900 * (cos(draw.player_angle)), data->draw.posY_display + 1300 * (sin(draw.player_angle)));
 	// d_view(data, data->draw.posX_display, data->draw.posY_display , 20);
-	mlx_put_image_to_window(data->window.mlx_ptr, data->window.win_ptr, data->window.img, 0, 0);
 }

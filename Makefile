@@ -3,6 +3,7 @@ include config/init_srcs.mk
 include config/draw_srcs.mk
 include config/dhook_srcs.mk
 include config/error_srcs.mk
+include config/engine_srcs.mk
 
 NAME	= cube3d
 
@@ -12,6 +13,7 @@ HEADER	= 	include/cube3d.h		\
 			src/dhook/dhook.h		\
 			src/draw/draw.h			\
 			src/error/error.h		\
+			src/engine/engine.h	\
 			mlx/mlx.h				\
 			mlx/mlx_new_window.h	\
 			mlx/mlx_int.h			\
@@ -36,7 +38,7 @@ LIBFLAGS= -framework OpenGL -framework AppKit
 
 all: maker ${NAME}
 
-%.o : %.c	${HEADER}
+%.o : %.c	${HEADER} Makefile
 			${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
 
 ${NAME}: ${OBJS} libft2/libft2.a mlx/libmlx.a
