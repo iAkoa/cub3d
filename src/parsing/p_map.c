@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 22:20:09 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,23 @@
 static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
 {
 	
-	while (line || data->parsing.y_max == 0)
+	while (line)
 	{
+		printf("lione = %s\n", line);
+		if (line[0] == '\n' && ft_strlen(line) == 1)
+			break;
 		if (line)
 		{
 			line = gc_strtrim(&data->track, line, "\n");
 			data->parsing.y_max += 1;
-			data->parsing.size_mal += ft_strlen(line);
+			if (ft_strlen(line) > (size_t)data->parsing.x_max)
+				data->parsing.x_max = ft_strlen(line);
 		}
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 	}
 	close(data->parsing.fd);
+	data->parsing.size_mal = data->parsing.y_max * data->parsing.x_max;
+	printf("data->parsing.y_max * data->parsing.x_max = %i\n" , data->parsing.y_max * data->parsing.x_max);
 	map = gc_calloc(sizeof(t_map), data->parsing.size_mal + 1, &data->track);
 	map[data->parsing.size_mal].stop = 1;
 	// printf("x_max = %i\n", data->x_max);
@@ -40,15 +46,23 @@ static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
 static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 {
 	int		x;
-	int		x_max;
-	t_map	*tmp;
-
-	tmp = map;
+	int		i;
+	
+	i = 0;
 	x = 0;
-	while (line[x])
+	printf(">>>>>>>>>>>> y = %i\n", y);
+	while (i < data->parsing.x_max &&  i * y < data->parsing.size_mal)
 	{
-
-		if (line[x] == ' ')
+		printf("line = %s\n", line);
+		printf("line[x] = %c\n", line[x]);
+		printf("x = %i\n", x);
+		printf("y = %i\n", y);
+		printf("i = %i\n", i);
+		printf("data->parsing.x_max = %i\n", data->parsing.x_max);
+		printf("data->parsing.y_max = %i\n", data->parsing.y_max);
+		if (!line[x])
+			map->z = EMPTY;
+		else if (line[x] == ' ')
 			map->z = EMPTY;
 		else if (line[x] == '0')
 			map->z = FLOOR;
@@ -68,20 +82,18 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 		map->y = y;
 		map->stop = 0;
 		map->color = 0x00FFFFF;
-		x += 1;
+		if (line[x])
+			x++;
+		i ++;
 		// printf("pointeur map boucle while : %p\n", map);
+		data->parsing.test += 1;
+		printf("y * x = %i\n", y * x );
+		printf("test = %i\n", data->parsing.test);
 		map++;
 	}
 	if (x > data->draw.map_Xmax)
 		data->draw.map_Xmax = x;
 	data->draw.map_Ymax++;
-	x_max = (double)x;
-	x = 0;
-	while (x <= x_max)
-	{
-		tmp[x].x_max = x_max;
-		x++;
-	}
 	return (map);
 }
 
@@ -98,7 +110,7 @@ char	*parsing_map(t_data *data, char *line)
 	// printf("pointeur map  : %p\n", map);
 	tmp = data->map;
 	y = 0;
-	while (line)
+	while (y < data->parsing.y_max)
 	{
 		if (line[0] == '\n' && ft_strlen(line) == 1)
 			break;
@@ -108,6 +120,7 @@ char	*parsing_map(t_data *data, char *line)
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 		y++;
 	}
+
 	data->map = tmp;
 	return (line);
 }

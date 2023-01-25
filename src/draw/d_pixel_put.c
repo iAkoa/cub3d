@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_draw_point.c                                     :+:      :+:    :+:   */
+/*   d_pixel_put.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 13:30:09 by pat               #+#    #+#             */
-/*   Updated: 2023/01/23 13:16:18 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 03:31:24 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "draw.h"
 
 
-void	ft_my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	d_my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 	if (x > 1920 || y > 1080 || x < 0 || y < 0)
@@ -24,7 +24,7 @@ void	ft_my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	ft_my_mlx_pixel_put_minimap(t_data *data, int x, int y, int color)
+void	d_my_mlx_pixel_put_minimap(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 	if (x > data->draw.x_max_minimap || y > data->draw.y_max_minimap || x < 0 || y < 0)
@@ -34,7 +34,7 @@ void	ft_my_mlx_pixel_put_minimap(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_my_mlx_pixel_put_view(t_data *data, int x, int y, int color)
+int	d_my_mlx_pixel_put_view(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -48,7 +48,7 @@ int	ft_my_mlx_pixel_put_view(t_data *data, int x, int y, int color)
 	return (1);
 }
 
-int	ft_my_mlx_pixel_put_player(t_data *data, int x, int y, int color)
+int	d_my_mlx_pixel_put_player(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 	char	*check_hit;

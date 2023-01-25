@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 03:44:17 by pat               #+#    #+#             */
-/*   Updated: 2023/01/23 14:32:37 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 04:02:25 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ft_keyhook1(t_data *data, t_window win, t_map *map, int keycode)
 	}
 	if (keycode == LEFT_ARROW)
 	{
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		data->draw.player_angle-= M_PI/25;
 		draw(data);
 	}
@@ -169,7 +169,7 @@ void	ft_keyhook2(t_data *data, t_window win, t_map *map, int keycode)
 
 	if (keycode == RIGHT_ARROW)
 	{
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		data->draw.player_angle+= M_PI/25;
 		ft_keyhook_process(win);
 		draw(data);
@@ -203,7 +203,7 @@ void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode)
 				data->dhook.moove_spawn_x -=5;
 		}
 		data->draw.hit_left = 0;
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		ft_keyhook_process(win);
 		draw(data);
 	}
@@ -226,7 +226,7 @@ void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode)
 				data->dhook.moove_spawn_x+=5;
 		}
 		data->draw.hit_right = 0;
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		ft_keyhook_process(win);
 		draw(data);
 	}
@@ -257,7 +257,7 @@ void	ft_keyhook4(t_data *data, t_window win, t_map *map, int keycode)
 				data->dhook.moove_spawn_y +=5;
 		}
 		data->draw.hit_bottom = 0;
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		ft_keyhook_process(win);
 		draw(data);
 	}
@@ -279,7 +279,7 @@ void	ft_keyhook4(t_data *data, t_window win, t_map *map, int keycode)
 				data->dhook.moove_spawn_y -=5;
 		}
 		data->draw.hit_top= 0;
-		ft_my_pixel_clear(data);
+		d_my_pixel_clear(data);
 		ft_keyhook_process(win);
 		draw(data);
 	}

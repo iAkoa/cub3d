@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 21:30:44 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	p_startspawn(t_data *data, t_map *map)
 			if (map[i].z == EAST)
 				data->draw.player_angle = 0;
 			else if (map[i].z == NORTH)
-				data->draw.player_angle = -M_PI_2;
+				data->draw.player_angle = 3 * M_PI_2;
 			else if (map[i].z == WEST)
 				data->draw.player_angle = M_PI;
 			else if (map[i].z == SOUTH)
@@ -77,6 +77,7 @@ static void	p_parsing_color_floor(t_data *data, char *line)
 	line_split = gc_split(&data->track, line, ' ');
 	if (ft_strlen_split(line_split) != 2)
 		error(data, "F COLOR NOT CORRECT !");
+	// check si line_split[0] = F;
 	color_split = gc_split(&data->track, line_split[1], ',');
 	if (ft_strlen_split(color_split) != 3)
 		error(data, "F COLOR NOT CORRECT !");
@@ -102,7 +103,7 @@ int	p_parsing(t_data *data, char *file)
 		p_path(data, line, i);
 	}
 	line = p_gnl_jnl_secure(data, line, "F COLOR EMPTY !");
-	p_parsing_color_floor(data, line);
+	p_parsing_color_floor(data, line); // gerer la virgule de trop
 	line = p_gnl_jnl_secure(data, line, "C COLOR EMPTY !");
 	p_parsing_color_sky(data, line);
 	line = p_gnl_jnl_secure(data, line, "MAP EMPTY !");
@@ -110,7 +111,7 @@ int	p_parsing(t_data *data, char *file)
 	line = jump_new_line(data, line);
 	if (line)
 		error(data, "MAP INCCORECT !");
-	// p_check_map(data, data->map);
+	p_check_map(data, data->map);
 	p_startspawn(data, data->map);
 	p_convert_map_1d(data, data->map);
 	// printf("i spawn start = %i\n", data->parsing.start_spawn); 

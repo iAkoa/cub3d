@@ -6,14 +6,14 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:27:34 by pat               #+#    #+#             */
-/*   Updated: 2023/01/23 13:23:44 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 03:31:51 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 #include "draw.h"
 
-void	ft_my_pixel_clear(t_data *data)
+void	d_my_pixel_clear(t_data *data)
 {
 	int	x;
 	int	y;
@@ -24,7 +24,7 @@ void	ft_my_pixel_clear(t_data *data)
 		y = 0;
 		while (y < 900)
 		{
-			ft_my_mlx_pixel_put(data, x, y, 0);
+			d_my_mlx_pixel_put(data, x, y, 0);
 			y++;
 		}
 		x++;
@@ -43,7 +43,7 @@ void drawLine(t_data *data, int x1, int y1, int x2, int y2)
 	err /= 2;
 	while (1) 
 	{
-		if(!ft_my_mlx_pixel_put_view(data, x1, y1,  PLAYER_COLOR))
+		if(!d_my_mlx_pixel_put_view(data, x1, y1,  PLAYER_COLOR))
 			break;
 		if (x1 == x2 && y1 == y2)
 			break;
@@ -77,7 +77,7 @@ static void d_position(t_data *data, int posX, int posY)
 		posY_display = posY - 5;
 		while (posY_display < posY + 5)
 		{
-			ft_my_mlx_pixel_put_player(data, posX_display, posY_display,  PLAYER_COLOR);
+			d_my_mlx_pixel_put_player(data, posX_display, posY_display,  PLAYER_COLOR);
 			posY_display++;
 		}
 		posX_display++;
@@ -108,13 +108,13 @@ static void d_bloc_minimap(t_data *data, t_draw draw, t_map **map)
 		{
 			x_display = x + draw.x_display;
 			if (((x == 0 || y ==  0 || x == 1 || y == 1|| x == draw.size_of_bloc - 1 || y == draw.size_of_bloc - 1 || x == draw.size_of_bloc || y == draw.size_of_bloc))&& map[draw.y][draw.x].z == WALL)
-				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_WALL_COLOR);
-			else if ((x == 0 || y ==  0 || x == 1 || y == 1|| x == draw.size_of_bloc - 1 || y == draw.size_of_bloc - 1 || x == draw.size_of_bloc || y == draw.size_of_bloc))
-				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_COLOR);
+				d_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_WALL_COLOR);
+			else if ((x == 0 || y ==  0 || x == 1 || y == 1|| x == draw.size_of_bloc - 1 || y == draw.size_of_bloc - 1 || x == draw.size_of_bloc || y == draw.size_of_bloc) && map[draw.y][draw.x].z != EMPTY)
+				d_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, GRID_COLOR);
 			else if (map[draw.y][draw.x].z == WALL)
-				ft_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, WALL_COLOR);
+				d_my_mlx_pixel_put_minimap(data, x + draw.x_display, y + draw.y_display, WALL_COLOR);
 			else if (map[draw.y][draw.x].z != WALL && map[draw.y][draw.x].z != EMPTY)
-				ft_my_mlx_pixel_put_minimap(data,x + draw.x_display, y + draw.y_display, FLOOR_COLOR);
+				d_my_mlx_pixel_put_minimap(data,x + draw.x_display, y + draw.y_display, FLOOR_COLOR);
 			if (map[draw.y][draw.x].z != WALL && map[draw.y][draw.x].z != EMPTY && map[draw.y][draw.x].z != FLOOR)
 				if (x == draw.size_of_bloc / 2 && y == draw.size_of_bloc / 2)
 				{
@@ -137,15 +137,16 @@ void	d_minimap(t_data *data, t_draw draw, t_map **map)
 
 	// printf("player pos X =  %i\n", data->draw.posX_display);
 	// printf("player pos Y =  %i\n", data->draw.posY_display);
-	
 	draw.y_display = data->draw.moove_mapY;
 	while (draw.y < data->parsing.y_max)
 	{
 		draw.x = 0;
 		draw.x_display = data->draw.moove_mapX;
-		while (draw.x < map[draw.y][draw.x].x_max)
+		// printf("map[draw.y][draw.x].x_max = %f\n", map[draw.y][draw.x].x_max);
+		while (draw.x < data->parsing.x_max)
 		{
 			d_bloc_minimap(data, draw, map);
+			// printf("draw.x = %i et draw.y = %i\n", draw.x, draw.y);
 			draw.x_display += draw.size_of_bloc;
 			draw.x++;
 		}

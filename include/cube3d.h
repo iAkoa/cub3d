@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/24 09:02:41 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 21:35:25 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ struct s_parsing
 	char *south_path;
 	char *north_path;
 	int	start_spawn;
+	int test;
 };
 
 struct s_window
