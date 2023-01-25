@@ -47,33 +47,30 @@ int	main(int ac, char **av)
 	data.engine.posx = (data.draw.posX * 32) + 16;
 	data.engine.posy = (data.draw.posY * 32) + 16;
 	data.engine.pa = data.draw.player_angle;
-	int	i;
+	// int	i;
 	
-	i  = 0;
-	while (!data.map[i].stop)
-	{
-		dprintf(2, "////////////%i/////////////\n", i);
-		dprintf(2, "x = %f\n", data.map[i].x);
-		dprintf(2, "y = %f\n", data.map[i].y);
-		dprintf(2, "z = %f\n", data.map[i].z);
-		dprintf(2, "x_max = %f\n", data.map[i].x_max);
-		dprintf(2, "stop = %d\n", data.map[i].stop);
-		i++;
-	}
+	// i  = 0;
+	// while (data.mapchar[i])
+	// {
+	// 	dprintf(2, "////////////%i/////////////\n", i);
+	// 	dprintf(2, "x = %c\n", data.mapchar[i]);
+	// 	i++;
+	// }
+	// printf("data->map = %s\n", data.mapchar);
 	// int i = 0;
-	i = 0;
-	int j;
-	while (i < data.parsing.y_max)
-	{
-		j = 0;
-		while (!data.map2d[i][j].stop)
-		{
-			dprintf(2, ">>>>>>>>>>>>>>>%i\n", j * i + i);
-			dprintf(2, "y = %d et x = %d et z = %f \n",i , j, data.map2d[i][j].z);
-			j++;
-		}
-		i++;
-	}
+	// i = 0;
+	// int j;
+	// while (i < data.parsing.y_max)
+	// {
+	// 	j = 0;
+	// 	while (!data.map2d[i][j].stop)
+	// 	{
+	// 		dprintf(2, ">>>>>>>>>>>>>>>%i\n", j * i + i);
+	// 		dprintf(2, "y = %d et x = %d et z = %f \n",i , j, data.map2d[i][j].z);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	e_raycasting(&data, &data.engine);
 	d_minimap(&data, data.draw, data.map2d);
 	mlx_put_image_to_window(data.window.mlx_ptr, data.window.win_ptr, data.window.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:22:25 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 03:49:51 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 06:43:54 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	e_horizontal_mx_my_check(t_data *data, t_engine *engine)
 		engine->ray_h.mx *= -1;
 	if (engine->ray_h.my >= data->parsing.y_max)
 		engine->ray_h.my = data->parsing.y_max - 1;
-	// printf("engine->ray_h.my = %d\n", engine->ray_h.my);
 }
 
 static void	e_set_ray_h_case_1(t_engine *engine, float atan)
@@ -50,7 +49,7 @@ static void	e_set_ray_h_case_1(t_engine *engine, float atan)
 
 static void	e_set_ray_h_case_2(t_engine *engine, float atan)
 {
-	engine->ray_h.ry = (((int)engine->posy >> 5) << 5) + 32;
+	engine->ray_h.ry = (((int)engine->posy >> 5) * 32) + 32;
 	engine->ray_h.rx = (engine->posy - engine->ray_h.ry) * atan + engine->posx;
 	engine->ray_h.yo = 32;
 	engine->ray_h.xo = (-engine->ray_h.yo * atan);
@@ -77,16 +76,12 @@ void	e_horizontal_line_check(t_data *data, t_engine *engine, float ra, float ata
 		e_set_ray_h_case_3(engine);
 	while (engine->ray_h.dof < engine->dof_limit)
 	{
+		e_horizontal_mx_my_check(data, engine);
 		engine->ray_h.mx = ((int)(engine->ray_h.rx) >> 5);
 		engine->ray_h.my = ((int)(engine->ray_h.ry) >> 5);
-		e_horizontal_mx_my_check(data, engine);
 		// printf("engine->ray_h.mx = %i, engine->ray_h.my = %i\n", engine->ray_h.mx, engine->ray_h.my);
-		engine->ray_h.mp = engine->ray_h.my * (data->draw.map_Xmax + engine->ray_h.mx);
-		// printf("engine->ray_h.dof = %i\n", engine->ray_h.dof);
-		// printf("engine->dof_limit = %i\n", engine->dof_limit);
-		// printf("engine->ray_h.mx = %i et engine->ray_h.my = %i\n", engine->ray_h.mx,  engine->ray_h.my);
-		// printf("data->draw.map_Xmax * data->draw.map_Ymax = %i\n", data->draw.map_Xmax * data->draw.map_Ymax);
-		if (engine->ray_h.mp > 0 && (engine->ray_h.mp < (data->draw.map_Xmax * data->draw.map_Ymax)) &&  data->map[engine->ray_v.mp].z == WALL)
+		engine->ray_h.mp = engine->ray_h.my * (data->parsing.x_max + engine->ray_h.mx);
+		if (engine->ray_h.mp > 0 && (engine->ray_h.mp < (data->parsing.x_max  * data->parsing.y_max)) &&  data->map[engine->ray_h.mp].z == WALL)
 			engine->ray_h.dof = engine->dof_limit;
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/24 21:35:25 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 06:37:16 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,8 @@ struct s_data
 	t_engine	engine;
 	int			width;
 	int			lenght;
-	char		**map2d_;
+	char		*mapchar;
+	int			*mapint;
 };
 
 struct s_map

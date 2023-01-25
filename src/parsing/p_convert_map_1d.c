@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:10:49 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 22:26:50 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 06:12:45 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void p_convert_map_1d(t_data *data, t_map *map1d)
 	
 	i = 0;
 	tmp_y = 0;
+	// printf("data->parsing.x_max = %i\n", data->parsing.y_max);
 	data->map2d = gc_calloc(sizeof(t_map *), data->parsing.y_max + 1, &data->track);
 	data->map2d[0] = gc_calloc(sizeof(t_map), data->parsing.x_max + 1, &data->track);
-	data->map2d[0][data->parsing.y_max].stop = 1;
+	data->map2d[0][data->parsing.x_max].stop = 1;
 		// data->map2d = gc_calloc(sizeof(t_map *), data->parsing.y_max + 1, &data->track);
 	while (!map1d[i].stop)
 	{

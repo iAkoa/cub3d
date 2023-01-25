@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 03:44:17 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 04:02:25 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 06:12:24 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,9 @@ void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode)
 	if (keycode == D)
 	{
 		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, RIGHT);
-		printf("check1 = %i\n", check1);
-		printf("check2 = %i\n", check2);
-		printf("data->draw.size_playerxMax = %i\n", data->draw.size_playerxMax);
+		// printf("check1 = %i\n", check1);
+		// printf("check2 = %i\n", check2);
+		// printf("data->draw.size_playerxMax = %i\n", data->draw.size_playerxMax);
 		if(!data->draw.hit_right)
 		{
 			if(check1 == 0)

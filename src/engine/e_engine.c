@@ -27,7 +27,6 @@ void	e_draw_walls(t_data *data, t_engine *engine, float ra, float j)
 	engine->dist = engine->dist * cos(ca);
 	engine->lineh = ((25 * 1920) / engine->dist);
 	engine->lineo = (960 - engine->lineh / 2);
-
 	d_3d(data, engine, j);
 	return ;
 }

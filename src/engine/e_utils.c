@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:40:05 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 03:50:57 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 04:29:56 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ unsigned int	e_get_value(t_data *data, t_engine *engine, int y, int x)
 		texx = ((engine->ray_v.ry / 32) - engine->ray_v.my) * 32;
 	else
 		texx = ((engine->ray_h.rx / 32) - engine->ray_h.mx) * 32;
-	texy = ((x - (540 - engine->lineh / 2)) / engine->lineh) * data->width;
-	data->window.addr = mlx_get_data_addr(data->window.img, &(data->window.bits_per_pixel),
-			&(data->lenght), &data->window.endian);
+	texy = ((x - (540 - engine->lineh / 2)) / engine->lineh) * data->parsing.y_max;
+	data->window.addr = mlx_get_data_addr(data->window.img, &data->window.bits_per_pixel,
+			&data->window.line_length, &data->window.endian);
 	return (data->window.addr[texy * data->window.line_length / 4 + texx]);
 }
 
