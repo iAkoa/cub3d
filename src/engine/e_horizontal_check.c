@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:22:25 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 06:43:54 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 07:17:53 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	e_horizontal_line_check(t_data *data, t_engine *engine, float ra, float ata
 		engine->ray_h.mx = ((int)(engine->ray_h.rx) >> 5);
 		engine->ray_h.my = ((int)(engine->ray_h.ry) >> 5);
 		// printf("engine->ray_h.mx = %i, engine->ray_h.my = %i\n", engine->ray_h.mx, engine->ray_h.my);
-		engine->ray_h.mp = engine->ray_h.my * (data->parsing.x_max + engine->ray_h.mx);
+		engine->ray_h.mp = engine->ray_h.my * data->parsing.x_max + engine->ray_h.mx;
 		if (engine->ray_h.mp > 0 && (engine->ray_h.mp < (data->parsing.x_max  * data->parsing.y_max)) &&  data->map[engine->ray_h.mp].z == WALL)
 			engine->ray_h.dof = engine->dof_limit;
 		else

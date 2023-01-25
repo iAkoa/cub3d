@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 08:34:44 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 19:07:46 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 07:24:02 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void init_draw(t_data *data)
 
 void init_engine(t_data *data)
 {
-	if (data->draw.map_Xmax > data->draw.map_Ymax)
-		data->engine.dof_limit = data->draw.map_Xmax;
+	if (data->parsing.x_max > data->parsing.y_max)
+		data->engine.dof_limit = data->parsing.x_max;
 	else
-		data->engine.dof_limit = data->draw.map_Ymax;
+		data->engine.dof_limit = data->parsing.y_max;
 	data->engine.ray_v.mx = 0;
 	data->engine.ray_v.my = 0;
 	data->engine.ray_v.mp = 0;

@@ -42,7 +42,7 @@ void	e_raycasting(t_data * data, t_engine *engine)
 	engine->ra = 0.0;
 	engine->ra = e_set_ra_before_loop(engine->ra, engine->pa);
 	data->engine.test = 0x00FFFFFF;
-	while (r < 1920)
+	while (r < 1919)
 	{
 		// printf("test\n");
 		engine->v_check = 0;
