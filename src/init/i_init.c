@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 08:34:44 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 07:24:02 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 08:32:20 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,13 @@ void init_engine(t_data *data)
 		data->engine.dof_limit = data->parsing.x_max;
 	else
 		data->engine.dof_limit = data->parsing.y_max;
-	data->engine.ray_v.mx = 0;
-	data->engine.ray_v.my = 0;
-	data->engine.ray_v.mp = 0;
-	data->engine.ray_v.rx = 0;
-	data->engine.ray_v.ry = 0;
-	data->engine.ray_v.xo = 0;
-	data->engine.ray_v.yo = 0;
-	data->engine.ray_v.dof = 0;
-	data->engine.ray_h.mx = 0;
-	data->engine.ray_h.my = 0;
-	data->engine.ray_h.mp = 0;
-	data->engine.ray_h.rx = 0;
-	data->engine.ray_h.ry = 0;
-	data->engine.ray_h.xo = 0;
-	data->engine.ray_h.yo = 0;
-	data->engine.ray_h.dof = 0;
-	data->engine.atan = 0;
-	data->engine.ntan = 0;
-	data->engine.ra = 0;
+	data->engine.posx = 0;
+	data->engine.posy = 0;
+	data->engine.hit_wall = 0;
+	data->engine.p2 = M_PI / 2;
+	data->engine.p3 = 3 * M_PI / 2;
+	data->engine.pdx = cos(data->engine.pa * 5);
+	data->engine.pdy = sin(data->engine.pa * 5) - (M_PI / 6);
 }
 void init_parsing(t_data *data)
 {
@@ -98,6 +86,7 @@ void init_parsing(t_data *data)
 
 void	init_ray_var(t_data *data)
 {
+	
 	data->engine.ray_v.mx = 0;
 	data->engine.ray_v.my = 0;
 	data->engine.ray_v.mp = 0;

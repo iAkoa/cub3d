@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:29:04 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 06:06:14 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 08:33:35 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	d_vertical_wall(t_data *data, t_engine *engine, float j, float i)
 
 	if (engine->ray_v.rx < engine->posx)
 		d_my_mlx_pixel_put(data, (int)j, (int)i,
-			0x000000FF);
+			0x00F0FF0F);
 	if (engine->ray_v.rx > engine->posx)
 		d_my_mlx_pixel_put(data, (int)j, (int)i,
 			0x00FF0000);

@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 21:30:44 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 08:41:37 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	p_parsing_color_sky(t_data *data, char *line)
 	line_split = gc_split(&data->track, line, ' ');
 	if (ft_strlen_split(line_split) != 2)
 		error(data, "C COLOR NOT CORRECT !");
+	if (line_split[0][0] != 'C' && ft_strlen(line_split[0]) != 1)
+		error(data, "C COLOR NOT CORRECT !");
 	color_split = gc_split(&data->track, line_split[1], ',');
 	if (ft_strlen_split(color_split) != 3)
 		error(data, "C COLOR NOT CORRECT !");
@@ -77,7 +79,8 @@ static void	p_parsing_color_floor(t_data *data, char *line)
 	line_split = gc_split(&data->track, line, ' ');
 	if (ft_strlen_split(line_split) != 2)
 		error(data, "F COLOR NOT CORRECT !");
-	// check si line_split[0] = F;
+	if (line_split[0][0] != 'F' && ft_strlen(line_split[0]) != 1)
+		error(data, "F COLOR NOT CORRECT !");	
 	color_split = gc_split(&data->track, line_split[1], ',');
 	if (ft_strlen_split(color_split) != 3)
 		error(data, "F COLOR NOT CORRECT !");
