@@ -24,6 +24,21 @@ static int	ft_exit(void *param)
 	return (0);
 }
 
+int	check_name(char *av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+		i++;
+	if (!av[i - 5] || av[i - 4] != '.' || av[i - 3] != 'c' || av[i - 2] != 'u'
+		|| av[i - 1] != 'b')
+	{
+		ft_putendl_fd("Wrong map name", 2);
+		return (0);
+	}
+	return (1);
+}
 
 int	main(int ac, char **av)
 {
@@ -33,6 +48,8 @@ int	main(int ac, char **av)
 
 	track = NULL;
 	map = NULL;
+	if (ac != 2 || check_name(av[1]) != 1)
+		return (0);
 	init_data(&data ,track, map);
 	init_window(&data);
 	init_parsing(&data);
