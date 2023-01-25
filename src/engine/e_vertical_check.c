@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:22:25 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 08:43:22 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 10:39:14 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ static void	e_vertical_mx_my_check(t_data *data, t_engine *engine)
 
 static void	e_set_ray_v_case_1(t_engine *engine, float ntan)
 {
-	engine->ray_v.rx = (((int)engine->posx >> 6) <<6) - 0.0001;
+	engine->ray_v.rx = (((int)engine->posx >> 5) << 5) - 0.0001;
 	engine->ray_v.ry = (engine->posx - engine->ray_v.rx) * ntan + engine->posy;
-	engine->ray_v.xo = -64;
+	engine->ray_v.xo = -32;
 	engine->ray_v.yo = (-engine->ray_v.xo * ntan);
 	return ;
 }
 
 static void	e_set_ray_v_case_2(t_engine *engine, float ntan)
 {
-	engine->ray_v.rx = (((int)engine->posx >>6)<<6) + 64;
+	engine->ray_v.rx = (((int)engine->posx >>5)<<5) + 32;
 	engine->ray_v.ry = (engine->posx - engine->ray_v.rx) * ntan + engine->posy;
-	engine->ray_v.xo = 64;
+	engine->ray_v.xo = 32;
 	engine->ray_v.yo = (-engine->ray_v.xo * ntan);
 	return ;
 }
@@ -74,8 +74,8 @@ void	e_vertical_line_check(t_data *data, t_engine *engine, float ra, float ntan)
 		e_set_ray_v_case_3(engine);
 	while (engine->ray_v.dof < engine->dof_limit)
 	{
-		engine->ray_v.mx = ((int)(engine->ray_v.rx) >> 6);
-		engine->ray_v.my = ((int)(engine->ray_v.ry) >> 6);
+		engine->ray_v.mx = ((int)(engine->ray_v.rx) >> 5);
+		engine->ray_v.my = ((int)(engine->ray_v.ry) >> 5);
 		e_vertical_mx_my_check(data, &(data->engine));
 		engine->ray_v.mp = engine->ray_v.my * data->parsing.x_max + engine->ray_v.mx;
 		if (engine->ray_v.mp > 0 && (engine->ray_v.mp < (data->parsing.x_max * data->parsing.y_max) - 1) && data->map[engine->ray_v.mp].z == WALL)

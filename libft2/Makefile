@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmattheo <rmattheo@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 16:45:37 by rmattheo          #+#    #+#              #
-#    Updated: 2022/05/26 16:39:09 by rmattheo         ###   ########lyon.fr    #
+#    Updated: 2023/01/25 10:26:52 by pat              ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME	= libft2.a
 
 HEADER	=	include/gc.h		\
 			include/libft.h
+
 INCLUDES= ${addprefix -I, ${sort ${dir ${HEADER}}}}
 
 SRCS	=	ft_check/ft_isalpha.c			\

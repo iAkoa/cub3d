@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/25 06:37:16 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 12:42:51 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ typedef struct s_data		t_data;
 typedef struct s_window		t_window;
 typedef struct s_map		t_map;
 typedef struct s_parsing	t_parsing;
-typedef struct s_draw		t_draw;
+typedef struct s_minimap		t_minimap;
 typedef struct s_dhook		t_dhook;
 typedef struct s_fix		t_fix;
 typedef struct s_engine		t_engine;
 typedef struct s_rayv		t_rayv;
 typedef struct s_rayh		t_rayh;
+typedef struct s_collision	t_collision;
 
 struct s_parsing
 {
@@ -70,7 +71,7 @@ struct s_window
 	int		y_max_minimap;
 };
 
-struct s_draw
+struct s_minimap
 {
 	int	x_max_minimap;
 	int	y_max_minimap;
@@ -120,6 +121,23 @@ struct s_rayv
 	int		dof;
 };
 
+
+struct s_collision
+{
+	int		ym_pos;
+	int		xm_pos;
+	int		yo_add;
+	int		xo_add;
+	int		yo_sub;
+	int		xo_sub;
+	int		xo_right;
+	int		yo_right;
+	int		xo_left;
+	int		yo_left;
+	int		xo;
+	int		yo;
+};
+
 struct s_rayh
 {
 	float	rx;
@@ -133,6 +151,7 @@ struct s_rayh
 };
 struct s_engine
 {
+	t_collision	collision;
 	t_rayv		ray_v;
 	t_rayh		ray_h;
 	int			test;
@@ -184,7 +203,7 @@ struct s_data
 	t_map		**map2d;
 	t_window	window;
 	t_parsing	parsing;
-	t_draw		draw;
+	t_minimap	minimap;
 	t_dhook		dhook;
 	t_engine	engine;
 	int			width;
@@ -205,7 +224,8 @@ struct s_map
 };
 
 
-# define WALL_COLOR 0x00FFA500
+
+# define WALL_COLOR 0x00C4C5B2
 # define FLOOR_COLOR 0x00FFFFFE
 # define GRID_COLOR 0x0000002
 # define GRID_WALL_COLOR 0x00000003
@@ -229,7 +249,14 @@ struct s_map
 #define WEST 5
 #define SOUTH 6
 
+# define LEFT 1
+# define RIGHT 2
+# define TOP 3
+# define BOTTOM 4
+
+/*KEYCODE*/
 # define ESC 53
+# define TAB 48
 
 # define A 0
 # define B 11

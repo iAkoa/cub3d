@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 08:34:44 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 08:32:20 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 15:55:19 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,28 @@ void init_window(t_data *data)
 			&data->window.line_length, &data->window.endian);
 }
 
-void init_draw(t_data *data)
+void init_minimap_engine(t_data *data)
 {
-	data->draw.y = 0;
-	data->draw.x = 0;
-	data->draw.posY = 0;
-	data->draw.posX = 0;
-	data->draw.dirX = -1;
-	data->draw.dirY = 0;
-	data->draw.planeX = 0;
-	data->draw.planeY = 0.66;
-	data->draw.y_max_minimap = 40 * 8;
-	data->draw.x_max_minimap = 40 * 10;
-	data->draw.x_display = 0;
-	data->draw.y_display = 0;
-	data->draw.size_of_bloc =  40;
-	data->draw.moove_mapX = 0;
-	data->draw.moove_mapY = 0;
-	data->draw.hit_top = 0;
-	data->draw.hit_right = 0;
-	data->draw.hit_left = 0;
-	data->draw.hit_bottom = 0;
-	data->draw.size_check = 0;
+	data->minimap.y = 0;
+	data->minimap.x = 0;
+	data->minimap.posY = 0;
+	data->minimap.posX = 0;
+	data->minimap.dirX = -1;
+	data->minimap.dirY = 0;
+	data->minimap.planeX = 0;
+	data->minimap.planeY = 0.66;
+	data->minimap.y_max_minimap = 40 * 8;
+	data->minimap.x_max_minimap = 40 * 10;
+	data->minimap.x_display = 0;
+	data->minimap.y_display = 0;
+	data->minimap.size_of_bloc =  40;
+	data->minimap.moove_mapX = 0;
+	data->minimap.moove_mapY = 0;
+	data->minimap.hit_top = 0;
+	data->minimap.hit_right = 0;
+	data->minimap.hit_left = 0;
+	data->minimap.hit_bottom = 0;
+	data->minimap.size_check = 0;
 	
 }
 
@@ -111,4 +111,20 @@ void init_dhook(t_data *data)
 {
 	data->dhook.moove_spawn_x = 0;
 	data->dhook.moove_spawn_y = 0;
+}
+
+void init_collision(t_data *data)
+{
+	data->engine.collision.ym_pos = 0;
+	data->engine.collision.xm_pos = 0;
+	data->engine.collision.yo_add = 0;
+	data->engine.collision.xo_add = 0;
+	data->engine.collision.yo_sub = 0;
+	data->engine.collision.xo_sub = 0;
+	data->engine.collision.xo_right = 0;
+	data->engine.collision.yo_right = 0;
+	data->engine.collision.xo_left = 0;
+	data->engine.collision.yo_left = 0;
+	data->engine.collision.xo = 0;
+	data->engine.collision.yo = 0;
 }

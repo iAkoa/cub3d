@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dh_keyhook_exec.c                                  :+:      :+:    :+:   */
+/*   dh_translation_minimap.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/19 03:44:17 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 15:33:41 by pat              ###   ########lyon.fr   */
+/*   Created: 2023/01/25 12:32:07 by pat               #+#    #+#             */
+/*   Updated: 2023/01/25 12:38:46 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 #include "dhook.h"
 #include "../draw/draw.h"
-
 
 int check_wall(t_data *data, int posX, int posY, int side)
 {
@@ -32,7 +31,7 @@ int check_wall(t_data *data, int posX, int posY, int side)
 			dst = data->window.addr + (posY * data->window.line_length
 			+ (posX - check )* (data->window.bits_per_pixel / 8));
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == FLOOR_COLOR || *(unsigned int *)dst == GRID_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
-				data->draw.size_playerxMin = i * 2;
+				data->minimap.size_playerxMin = i * 2;
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
 			{
 				// printf("check  = %i\n", check); 
@@ -46,22 +45,22 @@ int check_wall(t_data *data, int posX, int posY, int side)
 				if (count >= 30)
 					return(i);
 			}
-			check += data->draw.size_of_bloc / 4;
+			check += data->minimap.size_of_bloc / 4;
 			i++;
 		}
 	}
 	else if (side == RIGHT)
 	{
 		check = posX;
-		while (check < data->draw.x_max_minimap)
+		while (check < data->minimap.x_max_minimap)
 		{
 			dst = data->window.addr + (posY * data->window.line_length
 			+ check * (data->window.bits_per_pixel / 8));
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == FLOOR_COLOR || *(unsigned int *)dst == GRID_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
-				data->draw.size_playerxMax = i * 2;
+				data->minimap.size_playerxMax = i * 2;
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
 			{
-				// printf("check = %i\n", check / data->draw.size_of_bloc);
+				// printf("check = %i\n", check / data->minimap.size_of_bloc);
 				while((*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR))
 				{
 					check++;
@@ -72,7 +71,7 @@ int check_wall(t_data *data, int posX, int posY, int side)
 				if (count > 30)
 					return(i);
 			}
-			check += data->draw.size_of_bloc / 4;
+			check += data->minimap.size_of_bloc / 4;
 			i++;
 		}
 	}
@@ -85,8 +84,8 @@ int check_wall(t_data *data, int posX, int posY, int side)
 			+ posX * (data->window.bits_per_pixel / 8));
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == FLOOR_COLOR || *(unsigned int *)dst == GRID_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
 			{
-				// printf("data->draw.size_playeryMin = %i\n", data->draw.size_playeryMin);
-				data->draw.size_playeryMin = i * 2;
+				// printf("data->minimap.size_playeryMin = %i\n", data->minimap.size_playeryMin);
+				data->minimap.size_playeryMin = i * 2;
 			}
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
 			{
@@ -104,19 +103,19 @@ int check_wall(t_data *data, int posX, int posY, int side)
 					return(i);
 				}
 			}
-			check += data->draw.size_of_bloc / 4;
+			check += data->minimap.size_of_bloc / 4;
 			i++;
 		}
 	}
 	else if (side == BOTTOM)
 	{
 		check = 0;
-		while (check < data->draw.y_max_minimap)
+		while (check < data->minimap.y_max_minimap)
 		{
 			dst = data->window.addr + ((check + posY) * data->window.line_length
 			+ posX * (data->window.bits_per_pixel / 8));
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == FLOOR_COLOR || *(unsigned int *)dst == GRID_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
-				data->draw.size_playeryMax = i * 2;
+				data->minimap.size_playeryMax = i * 2;
 			if (*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR)
 			{
 				while((*(unsigned int *)dst == WALL_COLOR || *(unsigned int *)dst == GRID_WALL_COLOR))
@@ -129,150 +128,9 @@ int check_wall(t_data *data, int posX, int posY, int side)
 				if (count > 30)
 					return(i);
 			}
-			check += data->draw.size_of_bloc / 4;
+			check += data->minimap.size_of_bloc / 4;
 			i++;
 		}
 	}
 	return (0);
-}
-
-void	ft_keyhook1(t_data *data, t_window win, t_map *map, int keycode)
-{
-	(void)map;
-	(void)data;
-	if (keycode == ESC)
-	{
-		mlx_destroy_image(win.mlx_ptr, win.img);
-		mlx_destroy_window(win.mlx_ptr, win.win_ptr);
-		gc_free_all(&data->track);
-		exit(0);
-	}
-	if (keycode == LEFT_ARROW)
-	{
-		d_my_pixel_clear(data);
-		data->draw.player_angle-= M_PI/25;
-		draw(data);
-	}
-}
-
-void	ft_keyhook2(t_data *data, t_window win, t_map *map, int keycode)
-{
-	(void)map;
-	(void)data;
-
-
-	if (keycode == RIGHT_ARROW)
-	{
-		d_my_pixel_clear(data);
-		data->draw.player_angle+= M_PI/25;
-		ft_keyhook_process(win);
-		draw(data);
-	}
-}
-
-void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode)
-{
-	(void)map;
-	(void)data;
-	int check1;
-	int check2;
-	(void)check2;
-	check1 = 0;
-	check2 = 0;
-
-	if (keycode == A)
-	{
-		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, LEFT);			// printf("check1 = %i\n", check1);
-		// printf("check2 = %i\n", check2);
-		if (!data->draw.hit_left)
-		{
-			if(check1 == 0)
-			{
-				if (data->draw.size_playerxMin > 20)
-					data->dhook.moove_spawn_x-=5;
-				else
-					data->draw.moove_mapX+=5;
-			}
-			else
-				data->dhook.moove_spawn_x -=5;
-		}
-		data->draw.hit_left = 0;
-		d_my_pixel_clear(data);
-		ft_keyhook_process(win);
-		draw(data);
-	}
-	if (keycode == D)
-	{
-		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, RIGHT);
-		// printf("check1 = %i\n", check1);
-		// printf("check2 = %i\n", check2);
-		// printf("data->draw.size_playerxMax = %i\n", data->draw.size_playerxMax);
-		if(!data->draw.hit_right)
-		{
-			if(check1 == 0)
-			{
-				if (data->draw.size_playerxMax > 20)
-					data->dhook.moove_spawn_x+=5;
-				else
-					data->draw.moove_mapX-=5;
-			}
-			else
-				data->dhook.moove_spawn_x+=5;
-		}
-		data->draw.hit_right = 0;
-		d_my_pixel_clear(data);
-		ft_keyhook_process(win);
-		draw(data);
-	}
-}
-
-void	dt_translation(t_data *data, t_window win, t_map *map, int keycode)
-{
-	int check1;
-	int check2;
-	(void)check2;
-	check1 = 0;
-	check2 = 0;
-	if (keycode == S)
-	{
-		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, BOTTOM);
-		if(!data->draw.hit_bottom)
-		{
-			if(check1 == 0)
-			{
-				if (data->draw.size_playeryMax > 20)
-					data->dhook.moove_spawn_y+=5;
-				else
-					data->draw.moove_mapY-=5;
-			}
-			else
-				data->dhook.moove_spawn_y +=5;
-		}
-		data->draw.hit_bottom = 0;
-		d_my_pixel_clear(data);
-		ft_keyhook_process(win);
-		draw(data);
-	}
-	if (keycode == W)
-	{
-		check1 = check_wall(data, data->draw.posX_display, data->draw.posY_display, TOP);
-		printf("check1 = %i\n", check1);
-		printf("data->draw.size_playeryMin = %i\n", data->draw.size_playeryMin);
-		if (!data->draw.hit_top)
-		{
-			if(check1 == 0)
-			{
-				if (data->draw.size_playeryMin > 20)
-					data->dhook.moove_spawn_y-=5;
-				else
-					data->draw.moove_mapY+=5;
-			}
-			else
-				data->dhook.moove_spawn_y -=5;
-		}
-		data->draw.hit_top= 0;
-		d_my_pixel_clear(data);
-		ft_keyhook_process(win);
-		draw(data);
-	}
 }

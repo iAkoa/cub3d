@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 07:49:28 by pat               #+#    #+#             */
-/*   Updated: 2023/01/22 04:54:03 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 13:15:46 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void init_data(t_data *data, t_track *track, t_map *map);
 void init_window(t_data *data);
 void init_parsing(t_data *data);
-void init_draw(t_data *data);
+void init_minimap_engine(t_data *data);
 void init_dhook(t_data *data);
 void init_engine(t_data *data);
 void init_ray_var(t_data *data);

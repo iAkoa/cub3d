@@ -53,17 +53,16 @@ int	main(int ac, char **av)
 	init_data(&data ,track, map);
 	init_window(&data);
 	init_parsing(&data);
-	init_draw(&data);
+	init_minimap_engine(&data);
 	data.ac = ac;
 	data.av = av;
 	if(!p_parsing(&data, av[1]))
 		return (0);
 	init_engine(&data);
-	data.engine.pa = data.draw.player_angle;
 	// printf("parsing ok !\n");
-	data.engine.posx = (data.draw.posX * 32) + 16;
-	data.engine.posy = (data.draw.posY * 32) + 16;
-	data.engine.pa = data.draw.player_angle;
+	data.engine.posx = (data.minimap.posX * 32) + 16;
+	data.engine.posy = (data.minimap.posY * 32) + 16;
+	data.engine.pa = data.minimap.player_angle;
 	// int	i;
 	
 	// i  = 0;
@@ -88,12 +87,10 @@ int	main(int ac, char **av)
 	// 	}
 	// 	i++;
 	// }
-	e_raycasting(&data, &data.engine);
-	d_minimap(&data, data.draw, data.map2d);
-	mlx_put_image_to_window(data.window.mlx_ptr, data.window.win_ptr, data.window.img, 0, 0);
+	draw(&data);
 	// printf("draw.x = %d\n",data.draw.x);
 	// printf("draw.y = %d\n", data.draw.y);
-	mlx_hook(data.window.win_ptr, 2, 1L << 0, ft_keyhook, &data);
+	mlx_hook(data.window.win_ptr, 2, 1L << 0, dh_keyhook, &data);
 	mlx_hook(data.window.win_ptr, 17, 0, ft_exit, &data);
 	mlx_loop(data.window.mlx_ptr);
 	return (0);

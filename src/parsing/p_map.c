@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 06:04:25 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 13:13:44 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ int add_line_mapchar(t_data *data, char *map, char *line, int y, int i)
 		// printf("y * x = %i\n", y * x );
 		// printf("test = %i\n", data->parsing.test);
 	}
-	if (x > data->draw.map_Xmax)
-		data->draw.map_Xmax = x;
-	data->draw.map_Ymax++;
 	return (i);
 }
 
@@ -145,9 +142,6 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 		// printf("test = %i\n", data->parsing.test);
 		map++;
 	}
-	if (x > data->draw.map_Xmax)
-		data->draw.map_Xmax = x;
-	data->draw.map_Ymax++;
 	return (map);
 }
 
