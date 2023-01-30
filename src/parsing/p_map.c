@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 16:14:39 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 16:51:42 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,13 @@ char	*p_parsing_map(t_data *data, char *line)
 
 	y = -1;
 	data->map = p_get_map_malloc(data, data->map, line);
-	data->parsing.fd = open(data->parsing.file, O_RDONLY);
 	close(data->parsing.fd);
+	data->parsing.fd = open(data->parsing.file, O_RDONLY);
+	// close(data->parsing.fd);
 	
 	// printf("pdata->parsing.fd = %d\n", data->parsing.fd);
 	// data->parsing.fd = fd;
-	data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
+	// data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
 	printf("data->parsing.fd = %i\n", data->parsing.fd);
 	printf("data->parsing.count = %i\n", data->parsing.count);
 	while(++y < data->parsing.count)
@@ -160,7 +161,7 @@ char	*p_parsing_map(t_data *data, char *line)
 	int i = 0;
 	while (y < data->parsing.y_max)
 	{
-		printf("line = %s\n", line);
+		printf("line2 = %s\n", line);
 		if (line[0] == '\n' && ft_strlen(line) == 1)
 			break;
 		line = gc_strtrim(&data->track, line, "\n");
@@ -170,6 +171,7 @@ char	*p_parsing_map(t_data *data, char *line)
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 		y++;
 	}
+	printf("line ===== %s\n", line);
 	data->map = tmp;
 	return (line);
 }

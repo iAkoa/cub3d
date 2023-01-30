@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:31:30 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 15:23:19 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 17:07:55 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,29 @@ static void p_check_path(t_data *data, char *line, int checkpoint)
 	if (checkpoint == 0)
 	{
 		data->parsing.north_path = line;
-		// if mlx_get_data_addr()
+		if (open(data->parsing.north_path, O_RDONLY, 777) == -1)
+			error(data, "BAD PATH 2!");
 	}
 	if (checkpoint == 1)
 	{
 		data->parsing.south_path = line;
 		// printf("data->parsing.south_path = %s\n", data->parsing.south_path);
-		// if (access(data->parsing.south_path, F_OK) == -1)
-			// error(data, "BAD PATH 2!");
+		if (open(data->parsing.south_path, O_RDONLY, 777) == -1)
+			error(data, "BAD PATH 2!");
 	}
 	if (checkpoint == 2)
 	{
 		data->parsing.west_path = line;
 		// printf("data->parsing.west_path = %s\n", data->parsing.west_path);
-		// if (access(data->parsing.west_path, F_OK) == -1)
-			// error(data, "BAD PATH 3!");
+		if (open(data->parsing.west_path, O_RDONLY, 777) == -1)
+			error(data, "BAD PATH 3!");
 	}
 	if (checkpoint == 3)
 	{
 		data->parsing.east_path = line;
 		// printf("data->parsing.east_path = %s\n", data->parsing.east_path);
-		// if (access(data->parsing.east_path, F_OK) == -1)
-			// error(data, "BAD PATH 4!");
+		if (open(data->parsing.east_path, O_RDONLY, 777) == -1)
+			error(data, "BAD PATH 4!");
 	}
 }
 

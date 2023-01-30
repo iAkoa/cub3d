@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 15:50:48 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 17:00:31 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,11 @@ int	p_parsing(t_data *data, char *file)
 			error(data, "TEXTURE OU INFORMATION OU HEADER INCORRECTS !");
 	}
 	line = p_gnl_jnl_secure(data, line, ".CUB INCORRECT!");
-	p_parsing_map(data, line);
+	line = p_parsing_map(data, line);
+	printf("line sorti de parsing = %s\n", line);
+	line = jump_new_line(data, line);
+	if (line && (line[0] != '\n' || ft_strlen(line) != 1))
+		error(data, ".CUB INCORRECT\n");
 	p_check_map(data, data->map);
 	p_startspawn(data, data->map);
 	p_convert_map_1d(data, data->map);

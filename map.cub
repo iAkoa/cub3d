@@ -1,7 +1,7 @@
-NO textures/ground.xpm
-SO textures/ground.xpm
-WE textures/ground.xpm
-EA textures/ground.xpm
+NO textures/téléchargement.xpm
+SO textures/grapefruit.xpm
+WE textures/images.xpm
+EA textures/images.xpm
 
 C 225,30,250
 F 255,0,0
@@ -21,3 +21,8 @@ F 255,0,0
 100001000111           1000000000001
 100011100001           1000000000001
 111111111111           1111111111111
+
+
+
+
+

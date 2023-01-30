@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 05:34:49 by pat               #+#    #+#             */
-/*   Updated: 2023/01/26 08:23:33 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 16:58:35 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,14 @@ char *p_gnl_jnl_secure(t_data *data, char *line, char *str)
 
 char	*jump_new_line(t_data *data, char *line)
 {
-	while (line && line[0] == '\n' && ft_strlen(line) == 1)
+	printf("line !!!!! = %s\n", line);
+	if (line)
 		line = gc_get_next_line(&data->track, data->parsing.fd);
+	while (line && line[0] == '\n' && ft_strlen(line) == 1)
+	{
+		line = gc_get_next_line(&data->track, data->parsing.fd);
+			printf("line !!!!! = %s\n", line);
+	}
+	
 	return (line);
 }
