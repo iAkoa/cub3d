@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_init.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: clora-ro <clora-ro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 08:34:44 by pat               #+#    #+#             */
-/*   Updated: 2023/01/24 19:07:46 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 19:48:14 by clora-ro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 void init_data(t_data *data, t_track *track, t_map *map)
 {
-
 	data->track = track;
 	data->map = map;
 }
@@ -32,27 +31,26 @@ void init_window(t_data *data)
 
 void init_draw(t_data *data)
 {
-	data->draw.y = 0;
-	data->draw.x = 0;
-	data->draw.posY = 0;
-	data->draw.posX = 0;
-	data->draw.dirX = -1;
-	data->draw.dirY = 0;
-	data->draw.planeX = 0;
-	data->draw.planeY = 0.66;
-	data->draw.y_max_minimap = 40 * 8;
-	data->draw.x_max_minimap = 40 * 10;
-	data->draw.x_display = 0;
-	data->draw.y_display = 0;
-	data->draw.size_of_bloc =  40;
-	data->draw.moove_mapX = 0;
-	data->draw.moove_mapY = 0;
-	data->draw.hit_top = 0;
-	data->draw.hit_right = 0;
-	data->draw.hit_left = 0;
-	data->draw.hit_bottom = 0;
-	data->draw.size_check = 0;
-	
+	data->minimap.y = 0;
+	data->minimap.x = 0;
+	data->minimap.posY = 0;
+	data->minimap.posX = 0;
+	data->minimap.dirX = -1;
+	data->minimap.dirY = 0;
+	data->minimap.planeX = 0;
+	data->minimap.planeY = 0.66;
+	data->minimap.y_max_minimap = 40 * 8;
+	data->minimap.x_max_minimap = 40 * 10;
+	data->minimap.x_display = 0;
+	data->minimap.y_display = 0;
+	data->minimap.size_of_bloc =  32;
+	data->minimap.moove_mapX = 0;
+	data->minimap.moove_mapY = 0;
+	data->minimap.hit_top = 0;
+	data->minimap.hit_right = 0;
+	data->minimap.hit_left = 0;
+	data->minimap.hit_bottom = 0;
+	data->minimap.size_check = 0;
 }
 
 void init_engine(t_data *data)

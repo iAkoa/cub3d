@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   dhook.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: clora-ro <clora-ro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 07:49:28 by pat               #+#    #+#             */
-/*   Updated: 2022/12/13 17:13:32 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 19:47:28 by clora-ro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DHOOK_H
 # define DHOOK_H
 
-int		ft_keyhook(int keycode, t_data *data);
-void	ft_keyhook_process(t_window win);
-void	ft_keyhook5(t_data *data, t_window win, t_map *map, int keycode);
-void	ft_keyhook4(t_data *data, t_window win, t_map *map, int keycode);
-void	ft_keyhook3(t_data *data, t_window win, t_map *map, int keycode);
-void	ft_keyhook2(t_data *data, t_window win, t_map *map, int keycode);
-void	ft_keyhook1(t_data *data, t_window win, t_map *map, int keycode);
-
+int		dh_keyhook(int keycode, t_data *data);
+int		check_wall(t_data *data, int posX, int posY, int side);
+void	dh_roation(t_data *data, int keycode);
+void	dh_translation(t_data *data, int keycode);
+void	dh_translation_minimap(t_data *data, int keycode);
+void	dh_bonus(t_data *data, int keycode);
+void	dh_moove_forward(t_data *data, t_engine *engine);
+void	dh_moove_backward(t_data *data, t_engine *engine);
+void	dh_moove_right(t_data *data, t_engine *engine);
+void	dh_moove_left(t_data *data, t_engine *engine);
+void	set_xo_and_yo_for_side_walk(t_engine *engine);
+void	dh_rotation_minimap_left(t_data *data, t_minimap *minimap);
+void	dh_rotation_minimap_right(t_data *data, t_minimap *minimap);
+void	dh_rotation_right(t_data *data, t_engine *engine);
+void	dh_rotation_left(t_data *data, t_engine *engine);
 
 #endif

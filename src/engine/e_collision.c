@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_draw.c                                           :+:      :+:    :+:   */
+/*   e_collision.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clora-ro <clora-ro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 13:47:04 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 19:47:45 by clora-ro         ###   ########lyon.fr   */
+/*   Created: 2023/01/25 10:28:44 by pat               #+#    #+#             */
+/*   Updated: 2023/01/30 18:02:46 by clora-ro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
-#include "draw.h"
-#include "../engine/engine.h"
+#include "engine.h"
 
-void	draw(t_data *data)
+int	e_check_collision(t_map **map, int y, int x)
 {
-	data->engine.pa = data->draw.player_angle;
-	e_raycasting(data, &data->engine);
-	e_minimap(data, data->minimap, data->map2d);
-	mlx_put_image_to_window(data->window.mlx_ptr,
-		data->window.win_ptr, data->window.img, 0, 0);
+	int		i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (map[y][x].z != WALL)
+			return (0);
+		i++;
+	}
+	return (1);
 }
