@@ -1,0 +1,2 @@
+line = textures/ground.xpm
+data->parsing.north_path = textures/ground.xpm

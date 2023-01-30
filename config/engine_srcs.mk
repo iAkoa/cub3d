@@ -6,7 +6,7 @@
 #    By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 00:44:31 by pat               #+#    #+#              #
-#    Updated: 2023/01/25 12:51:07 by pat              ###   ########lyon.fr    #
+#    Updated: 2023/01/27 10:43:27 by pat              ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,4 +15,5 @@ SRCS += src/engine/e_engine.c				\
 		src/engine/e_vertical_check.c		\
 		src/engine/e_utils.c				\
 		src/engine/e_engine_minimap.c		\
-		src/engine/e_collision.c
+		src/engine/e_collision.c			\
+		src/engine/e_value_texture.c

@@ -19,7 +19,7 @@
 void	e_draw_walls(t_data *data, t_engine *engine, float ra, float j)
 {
 	float	ca;
-	ca = engine->pa - ra;
+	ca = engine->player_angle - ra;
 	if (ca < 0)
 		ca += 2 * M_PI;
 	if (ca > 2 * M_PI)
@@ -39,9 +39,9 @@ void	e_raycasting(t_data * data, t_engine *engine)
 
 	r = 0;
 	j = 0;
+	// printf("engine->posx = %f\n", engine->posx);
 	engine->ra = 0.0;
-	engine->ra = e_set_ra_before_loop(engine->ra, engine->pa);
-	data->engine.test = 0x00FFFFFF;
+	engine->ra = e_set_ra_before_loop(engine->ra, engine->player_angle);
 	while (r < 1919)
 	{
 		// printf("test\n");

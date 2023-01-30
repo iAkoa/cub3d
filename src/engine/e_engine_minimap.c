@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:13:19 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 13:11:11 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 13:51:12 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void e_bresenham(t_data *data, int x1, int y1, int x2, int y2)
 	sy = y1 < y2 ? 1 : -1;
 	err = dx > dy ? dx : -dy;
 	err /= 2;
+	int i;
+	
+	i = 0;
 	while (1) 
 	{
 		if(!d_my_mlx_pixel_put_view(data, x1, y1,  PLAYER_COLOR))
@@ -40,6 +43,7 @@ void e_bresenham(t_data *data, int x1, int y1, int x2, int y2)
 			err += dx;
 			y1 += sy;
 		}
+		i++;
 	}
 }
 
@@ -77,6 +81,7 @@ static void e_bloc_minimap(t_data *data, t_minimap minimap, t_map **map)
 	// printf("draw.x = %d\n", draw.x);
 	// printf("draw.y = %d\n", draw.y);
 	// printf("draw.sizeofbloc = %d\n", draw.size_of_bloc);
+	// printf("minimap = %i\n", minimap.x_display);
 	while (y < minimap.size_of_bloc && minimap.y_display < minimap.y_max_minimap)
 	{
 		x = 0;
@@ -87,7 +92,7 @@ static void e_bloc_minimap(t_data *data, t_minimap minimap, t_map **map)
 			x_display = x + minimap.x_display;
 			if (((x == 0 || y ==  0 || x == 1 || y == 1|| x == minimap.size_of_bloc - 1 || y == minimap.size_of_bloc - 1 || x == minimap.size_of_bloc || y == minimap.size_of_bloc))&& map[minimap.y][minimap.x].z == WALL)
 				d_my_mlx_pixel_put_minimap(data, x + minimap.x_display, y + minimap.y_display, GRID_WALL_COLOR);
-			else if ((x == 0 || y ==  0 || x == 1 || y == 1|| x == minimap.size_of_bloc - 1 || y == minimap.size_of_bloc - 1 || x == minimap.size_of_bloc || y == minimap.size_of_bloc))
+			else if ((x == 0 || y ==  0 || x == 1 || y == 1|| x == minimap.size_of_bloc - 1 || y == minimap.size_of_bloc - 1 || x == minimap.size_of_bloc || y == minimap.size_of_bloc) && map[minimap.y][minimap.x].z != EMPTY)
 				d_my_mlx_pixel_put_minimap(data, x + minimap.x_display, y + minimap.y_display, GRID_COLOR);
 			else if (map[minimap.y][minimap.x].z == WALL)
 				d_my_mlx_pixel_put_minimap(data, x + minimap.x_display, y + minimap.y_display, WALL_COLOR);
@@ -116,11 +121,11 @@ void	e_minimap(t_data *data, t_minimap minimap, t_map **map)
 
 	// printf("player pos X =  %i\n", data->minimap.posX_display);
 	// printf("player pos Y =  %i\n", data->minimap.posY_display);
-	minimap.y_display = data->minimap.moove_mapY;
+	minimap.y_display = data->minimap.moove_mapY - ((minimap.posY * 32) - (minimap.size_of_bloc * 4));
 	while (minimap.y < data->parsing.y_max)
 	{
 		minimap.x = 0;
-		minimap.x_display = data->minimap.moove_mapX;
+		minimap.x_display = data->minimap.moove_mapX - ((minimap.posX * 32) - (minimap.size_of_bloc * 5));
 		// printf("map[minimap.y][minimap.x].x_max = %f\n", map[minimap.y][minimap.x].x_max);
 		while (minimap.x < data->parsing.x_max)
 		{
@@ -135,6 +140,6 @@ void	e_minimap(t_data *data, t_minimap minimap, t_map **map)
 	}
 	e_position(data, data->minimap.posX_display, data->minimap.posY_display);
 	e_bresenham(data, data->minimap.posX_display, data->minimap.posY_display,
-		data->minimap.posX_display + 900 * (cos(minimap.player_angle)), data->minimap.posY_display + 1300 * (sin(minimap.player_angle)));
+		data->minimap.posX_display + 30 * (cos(minimap.player_angle)), data->minimap.posY_display + 30 * (sin(minimap.player_angle)));
 	// d_view(data, data->draw.posX_display, data->draw.posY_display , 20);
 }

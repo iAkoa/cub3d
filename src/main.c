@@ -17,6 +17,20 @@
 #include "parsing/parsing.h"
 #include "engine/engine.h"
 
+void	e_set_texture_struct(t_data *data)
+{
+	// printf("data->parsing.north_path = %s\n", data->parsing.north_path);
+	data->engine.img_n.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.north_path, &(data->engine.img_n.width), &(data->engine.img_n.height));
+	data->engine.img_s.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.south_path, &(data->engine.img_s.width), &(data->engine.img_s.height));
+	data->engine.img_w.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.west_path, &(data->engine.img_w.width), &(data->engine.img_w.height));
+	data->engine.img_e.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.east_path, &(data->engine.img_e.width), &(data->engine.img_e.height));
+	// printf("data->engine.img_n.data %p\n", data->engine.img_n.data);
+}
+
 static int	ft_exit(void *param)
 {
 	(void)param;
@@ -59,10 +73,11 @@ int	main(int ac, char **av)
 	if(!p_parsing(&data, av[1]))
 		return (0);
 	init_engine(&data);
+	p_set_texture_struct(&data.engine, &data);
 	// printf("parsing ok !\n");
 	data.engine.posx = (data.minimap.posX * 32) + 16;
 	data.engine.posy = (data.minimap.posY * 32) + 16;
-	data.engine.pa = data.minimap.player_angle;
+	data.engine.player_angle = data.minimap.player_angle;
 	// int	i;
 	
 	// i  = 0;

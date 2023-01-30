@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 13:13:44 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 16:07:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
 	
 	while (line)
 	{
-		// printf("lione = %s\n", line);
+		 printf("lione = %s\n", line);
 		if (line[0] == '\n' && ft_strlen(line) == 1)
 			break;
 		if (line)
@@ -32,7 +32,6 @@ static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
 		}
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 	}
-	close(data->parsing.fd);
 	data->parsing.size_mal = data->parsing.y_max * data->parsing.x_max;
 	// printf("data->parsing.y_max * data->parsing.x_max = %i\n" , data->parsing.y_max * data->parsing.x_max);
 	map = gc_calloc(sizeof(t_map), data->parsing.size_mal + 1, &data->track);
@@ -42,6 +41,7 @@ static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
 	// printf("x_max = %i\n", data->x_max);
 	// printf("y_max = %i\n", data->y_max);
 	// printf("x_max * y_max = %i\n", data->x_max * data->y_max);
+	// close(data->parsing.fd);
 	return (map);
 }
 
@@ -101,16 +101,8 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 	
 	i = 0;
 	x = 0;
-	// printf(">>>>>>>>>>>> y = %i\n", y);
 	while (i < data->parsing.x_max &&  i * y < data->parsing.size_mal)
 	{
-		// printf("line = %s\n", line);
-		// printf("line[x] = %c\n", line[x]);
-		// printf("x = %i\n", x);
-		// printf("y = %i\n", y);
-		// printf("i = %i\n", i);
-		// printf("data->parsing.x_max = %i\n", data->parsing.x_max);
-		// printf("data->parsing.y_max = %i\n", data->parsing.y_max);
 		if (!line[x])
 			map->z = EMPTY;
 		else if (line[x] == ' ')
@@ -136,31 +128,44 @@ static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)
 		if (line[x])
 			x++;
 		i ++;
-		// printf("pointeur map boucle while : %p\n", map);
 		data->parsing.test += 1;
-		// printf("y * x = %i\n", y * x );
-		// printf("test = %i\n", data->parsing.test);
 		map++;
 	}
 	return (map);
 }
 
-char	*parsing_map(t_data *data, char *line)
+char	*p_parsing_map(t_data *data, char *line)
 {
 	double	y;
 	t_map	*tmp;
+	int fd;
 
 	y = -1;
 	data->map = p_get_map_malloc(data, data->map, line);
-	data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
+	fd = open(data->parsing.file, O_RDONLY);
+	
+	printf("fd: %d\n", fd);
+	
+	// close(data->parsing.fd);
+	
+	printf("pdata->parsing.fd = %d\n", data->parsing.fd);
+	line = NULL;
+	// data->parsing.fd = fd;
+	// data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
+	printf("data->parsing.fd = %i\n", data->parsing.fd);
+	printf("data->parsing.count = %i\n", data->parsing.count);
 	while(++y < data->parsing.count)
-		line = gc_get_next_line(&data->track, data->parsing.fd);
+	{
+		line = gc_get_next_line(&data->track, fd);
+		printf("line dans la boucle = %s\n", line);
+	}
 	// printf("pointeur map  : %p\n", map);
 	tmp = data->map;
 	y = 0;
 	int i = 0;
 	while (y < data->parsing.y_max)
 	{
+		printf("line = %s\n", line);
 		if (line[0] == '\n' && ft_strlen(line) == 1)
 			break;
 		line = gc_strtrim(&data->track, line, "\n");
@@ -170,7 +175,6 @@ char	*parsing_map(t_data *data, char *line)
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 		y++;
 	}
-
 	data->map = tmp;
 	return (line);
 }

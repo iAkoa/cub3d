@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/25 12:42:51 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 13:15:17 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_engine		t_engine;
 typedef struct s_rayv		t_rayv;
 typedef struct s_rayh		t_rayh;
 typedef struct s_collision	t_collision;
+typedef struct s_img		t_img;
 
 struct s_parsing
 {
@@ -55,6 +56,17 @@ struct s_parsing
 	int	start_spawn;
 	int test;
 };
+
+typedef struct s_img
+{
+	void	*data;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
 
 struct s_window
 {
@@ -91,8 +103,8 @@ struct s_minimap
 	double	player_angle;
 	int	ref_posX;
 	int	ref_posY;
-	int moove_mapX;
-	int moove_mapY;
+	double moove_mapX;
+	double moove_mapY;
 	int	hit_top;
 	int	hit_bottom;
 	int	hit_left;
@@ -170,7 +182,7 @@ struct s_engine
 	float		x;
 	float		y;
 	float		z;
-	float		pa;
+	float		player_angle;
 	float		pdx;
 	float		pdy;
 	float		posx;
@@ -186,6 +198,10 @@ struct s_engine
 	float		rayly;
 	float		dist;
 	int			fd;
+	t_img		img_n;
+	t_img		img_s;
+	t_img		img_w;
+	t_img		img_e;
 };
 
 struct s_dhook
@@ -206,6 +222,7 @@ struct s_data
 	t_minimap	minimap;
 	t_dhook		dhook;
 	t_engine	engine;
+	t_img		img;
 	int			width;
 	int			lenght;
 	char		*mapchar;

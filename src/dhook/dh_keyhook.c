@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:37:54 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/25 15:57:19 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 11:55:17 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ void dh_translation(t_data *data,int keycode)
 {
 	if (keycode == A)
 	{
+		// dh_moove_minimap_left(data, &data->engine);
 		dh_moove_left(data, &data->engine);
 		draw(data);
 	}
 	if (keycode == D)
 	{
+		// dh_moove_minimap_right(data, &data->engine);
 		dh_moove_right(data, &data->engine);
 		draw(data);
 	}
 	if (keycode == W)
 	{
+		// dh_moove_minimap_forward(data, &data->engine);
 		dh_moove_forward(data, &data->engine);
 		draw(data);
 	}
 	if (keycode == S)
 	{
+		// dh_moove_minimap_backward(data, &data->engine);
 		dh_moove_backward(data, &data->engine);
 		draw(data);
 	}
@@ -68,29 +72,15 @@ void dh_rotation(t_data *data,int keycode)
 	if (keycode == LEFT_ARROW)
 	{
 		dh_rotation_left(data, &data->engine);
-		dh_rotation_minimap_left(data, &data->engine);
+		dh_rotation_minimap_left(data, &data->minimap);
 		draw(data);
 	}
 	if (keycode == RIGHT_ARROW)
 	{
 		dh_rotation_right(data, &data->engine);
-		dh_rotation_minimap_right(data, &data->engine);
+		dh_rotation_minimap_right(data, &data->minimap);
 		draw(data);
 	}
-}
-
-void dh_translation_minimap(t_data *data,int keycode)
-{
-	(void)data;
-	(void)keycode;
-	// if (keycode == A)
-	// 	dh_moove_minimap_left(data, &data->engine);
-	// if (keycode == D)
-	// 	dh_moove_minimap_right(data, &data->engine);
-	// if (keycode == W)
-	// 	dh_moove_minimap_forward(data, &data->engine);
-	// if (keycode == S)
-		// dh_moove_minimap_backward(data, &data->engine);
 }
 
 void dh_bonus(t_data *data,int keycode)
@@ -101,7 +91,7 @@ void dh_bonus(t_data *data,int keycode)
 
 int	dh_keyhook(int keycode, t_data *data)
 {
-	printf("keycode = %i\n", keycode);
+	// printf("keycode = %i\n", keycode);
 	if (keycode == ESC)
 	{
 		mlx_destroy_image(data->window.mlx_ptr, data->window.img);
@@ -111,7 +101,7 @@ int	dh_keyhook(int keycode, t_data *data)
 	}
 	dh_translation(data, keycode);
 	dh_rotation(data, keycode);
-	dh_translation_minimap(data, keycode);
+	// dh_translation_minimap(data, keycode);
 	dh_bonus(data, keycode);
 	return (0);
 }
