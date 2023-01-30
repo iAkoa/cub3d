@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:40:26 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 16:07:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 16:14:39 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,25 +138,20 @@ char	*p_parsing_map(t_data *data, char *line)
 {
 	double	y;
 	t_map	*tmp;
-	int fd;
 
 	y = -1;
 	data->map = p_get_map_malloc(data, data->map, line);
-	fd = open(data->parsing.file, O_RDONLY);
+	data->parsing.fd = open(data->parsing.file, O_RDONLY);
+	close(data->parsing.fd);
 	
-	printf("fd: %d\n", fd);
-	
-	// close(data->parsing.fd);
-	
-	printf("pdata->parsing.fd = %d\n", data->parsing.fd);
-	line = NULL;
+	// printf("pdata->parsing.fd = %d\n", data->parsing.fd);
 	// data->parsing.fd = fd;
-	// data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
+	data->parsing.fd = open(data->parsing.file, O_RDONLY, 777);
 	printf("data->parsing.fd = %i\n", data->parsing.fd);
 	printf("data->parsing.count = %i\n", data->parsing.count);
 	while(++y < data->parsing.count)
 	{
-		line = gc_get_next_line(&data->track, fd);
+		line = gc_get_next_line(&data->track, data->parsing.fd);
 		printf("line dans la boucle = %s\n", line);
 	}
 	// printf("pointeur map  : %p\n", map);
