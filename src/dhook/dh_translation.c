@@ -6,12 +6,12 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:43:22 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 13:23:53 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "dhook.h"
 #include "../draw/draw.h"
 #include "../engine/engine.h"

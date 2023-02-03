@@ -6,11 +6,11 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 13:30:09 by pat               #+#    #+#             */
-/*   Updated: 2023/01/27 11:44:14 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "draw.h"
 
 void	d_my_pixel_clear(t_data *data)

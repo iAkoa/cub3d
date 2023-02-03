@@ -6,8 +6,9 @@
 #    By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 00:44:31 by pat               #+#    #+#              #
-#    Updated: 2022/11/28 11:52:08 by pat              ###   ########lyon.fr    #
+#    Updated: 2023/01/30 18:18:58 by pat              ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS +=	src/init/i_init.c
+SRCS +=	src/init/i_init.c	\
+		src/init/i_init2.c

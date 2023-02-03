@@ -6,16 +6,17 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:49:30 by pat               #+#    #+#             */
-/*   Updated: 2023/01/26 08:34:45 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "dhook.h"
 #include "../draw/draw.h"
 
 void dh_rotation_left(t_data *data, t_engine *engine)
 {
+	
 		(void)data;
 		engine->player_angle -= 0.05;
 		if (engine->player_angle < 0)

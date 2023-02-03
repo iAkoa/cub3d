@@ -6,18 +6,18 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 18:11:46 by pat               #+#    #+#             */
-/*   Updated: 2023/01/25 10:54:04 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "parsing.h"
 #include "../error/error.h"
 
 static void	check_left(t_data *data, t_map *map, int checkpoint)
 {
-	int i;
-	
+	int	i;
+
 	i = checkpoint;
 	while (i >= 0 && map[i].stop != 1 && map[checkpoint].y == map[i].y)
 	{
@@ -32,8 +32,8 @@ static void	check_left(t_data *data, t_map *map, int checkpoint)
 
 static void	check_right(t_data *data, t_map *map, int checkpoint)
 {
-	int i;
-	
+	int	i;
+
 	i = checkpoint;
 	while (i >= 0 && map[i].stop != 1 && map[checkpoint].y == map[i].y)
 	{
@@ -48,8 +48,8 @@ static void	check_right(t_data *data, t_map *map, int checkpoint)
 
 static void	check_top(t_data *data, t_map *map, int checkpoint)
 {
-	int i;
-	
+	int	i;
+
 	i = checkpoint;
 	while (i >= 0)
 	{
@@ -64,14 +64,15 @@ static void	check_top(t_data *data, t_map *map, int checkpoint)
 
 static void	check_bottom(t_data *data, t_map *map, int checkpoint)
 {
-	int i;
-	
+	int	i;
+
 	i = checkpoint;
 	while (i >= 0 && map[i].stop != 1)
 	{
-		if (map[i].z == WALL && map[i].x == map[checkpoint].x  && map[i].stop != 1)
+		if (map[i].z == WALL && map[i].x == map[checkpoint].x
+			&& map[i].stop != 1)
 			return ;
-		else if(map[i].z == EMPTY && map[i].x == map[checkpoint].x)
+		else if (map[i].z == EMPTY && map[i].x == map[checkpoint].x)
 			error(data, "MAP OPEN ON THE BOTTOM!");
 		i++;
 	}

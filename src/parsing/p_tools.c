@@ -6,37 +6,50 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 05:34:49 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 16:58:35 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "parsing.h"
 #include "../error/error.h"
 
-int ft_strlen_split(char **str)
+void	p_set_angle(t_data *data, t_map *map, int i)
 {
-	int i;
-	
+	if (map[i].z == EAST)
+		data->minimap.player_angle = 0;
+	else if (map[i].z == NORTH)
+		data->minimap.player_angle = -M_PI_2;
+	else if (map[i].z == WEST)
+		data->minimap.player_angle = M_PI;
+	else if (map[i].z == SOUTH)
+		data->minimap.player_angle = M_PI_2;
+	//data->minimap.player_angle += 1;
+}
+
+int	ft_strlen_split(char **str)
+{
+	int	i;
+
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char *p_gnl_secure(t_data *data, char *line, char *str)
+char	*p_gnl_secure(t_data *data, char *line, char *str)
 {
 	line = gc_get_next_line(&data->track, data->parsing.fd);
-	if(line == NULL)
+	if (line == NULL)
 		error(data, str);
 	data->parsing.count++;
 	return (line);
 }
 
-char *p_gnl_jnl_secure(t_data *data, char *line, char *str)
+char	*p_gnl_jnl_secure(t_data *data, char *line, char *str)
 {
 	line = gc_get_next_line(&data->track, data->parsing.fd);
-	if(line == NULL)
+	if (line == NULL)
 		error(data, str);
 	data->parsing.count++;
 	if (line[0] == '\n' && ft_strlen(line) == 1)
@@ -44,17 +57,11 @@ char *p_gnl_jnl_secure(t_data *data, char *line, char *str)
 	return (line);
 }
 
-
 char	*jump_new_line(t_data *data, char *line)
 {
-	printf("line !!!!! = %s\n", line);
 	if (line)
 		line = gc_get_next_line(&data->track, data->parsing.fd);
 	while (line && line[0] == '\n' && ft_strlen(line) == 1)
-	{
 		line = gc_get_next_line(&data->track, data->parsing.fd);
-			printf("line !!!!! = %s\n", line);
-	}
-	
 	return (line);
 }

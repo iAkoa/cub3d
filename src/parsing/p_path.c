@@ -6,48 +6,64 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:31:30 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 17:07:55 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cube3d.h"
+#include "../../include/cub3d.h"
 #include "parsing.h"
 #include "../error/error.h"
 
+void	p_set_texture_struct(t_engine *engine, t_data *data)
+{
+	engine->img_n.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.north_path,
+			&engine->img_n.width, &engine->img_n.height);
+	engine->img_s.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.south_path,
+			&engine->img_s.width, &engine->img_s.height);
+	engine->img_w.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.west_path,
+			&engine->img_w.width, &engine->img_w.height);
+	engine->img_e.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
+			data->parsing.east_path,
+			&engine->img_e.width, &engine->img_e.height);
+}
 
-static void p_check_path(t_data *data, char *line, int checkpoint)
+static void	p_check_path(t_data *data, char *line, int checkpoint)
 {
 	if (checkpoint == 0)
 	{
+		data->parsing.checker += 100;
 		data->parsing.north_path = line;
 		if (open(data->parsing.north_path, O_RDONLY, 777) == -1)
 			error(data, "BAD PATH 2!");
 	}
 	if (checkpoint == 1)
 	{
+		data->parsing.checker += 1000;
 		data->parsing.south_path = line;
-		// printf("data->parsing.south_path = %s\n", data->parsing.south_path);
 		if (open(data->parsing.south_path, O_RDONLY, 777) == -1)
 			error(data, "BAD PATH 2!");
 	}
 	if (checkpoint == 2)
 	{
+		data->parsing.checker += 10000;
 		data->parsing.west_path = line;
-		// printf("data->parsing.west_path = %s\n", data->parsing.west_path);
 		if (open(data->parsing.west_path, O_RDONLY, 777) == -1)
 			error(data, "BAD PATH 3!");
 	}
 	if (checkpoint == 3)
 	{
+		data->parsing.checker += 100000;
 		data->parsing.east_path = line;
-		// printf("data->parsing.east_path = %s\n", data->parsing.east_path);
 		if (open(data->parsing.east_path, O_RDONLY, 777) == -1)
 			error(data, "BAD PATH 4!");
 	}
 }
 
 /*verifie NO WE SO EA*/
-int p_strcmp(char *line, char *cmp)
+int	p_strcmp(char *line, char *cmp)
 {
 	int	i;
 
@@ -57,16 +73,16 @@ int p_strcmp(char *line, char *cmp)
 	while (line[i] || cmp[i])
 	{
 		if (line[i] != cmp[i])
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);
-} 
+}
 
 void	p_path(t_data *data, char *line)
 {
-	char **line_split;
-	
+	char	**line_split;
+
 	line = gc_strtrim(&data->track, line, "\n");
 	line_split = gc_split(&data->track, line, ' ');
 	if (p_strcmp(line_split[0], "NO"))

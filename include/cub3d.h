@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/01/30 13:15:17 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 17:05:15 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libft2/include/libft.h"
 # include "../libft2/include/gc.h"
@@ -54,7 +54,8 @@ struct s_parsing
 	char *south_path;
 	char *north_path;
 	int	start_spawn;
-	int test;
+	int	checker;
+	int	test;
 };
 
 typedef struct s_img
@@ -227,6 +228,7 @@ struct s_data
 	int			lenght;
 	char		*mapchar;
 	int			*mapint;
+	int			tab_keycode[7];
 };
 
 struct s_map

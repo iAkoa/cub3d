@@ -5,9 +5,9 @@ include config/dhook_srcs.mk
 include config/error_srcs.mk
 include config/engine_srcs.mk
 
-NAME	= cube3d
+NAME	= cub3D
 
-HEADER	= 	include/cube3d.h		\
+HEADER	= 	include/cub3d.h		\
 			src/init/init.h			\
 			src/parsing/parsing.h	\
 			src/dhook/dhook.h		\
@@ -33,7 +33,7 @@ SRCS	+=	src/main.c
 
 OBJS	= ${SRCS:.c=.o}
 CC		= gcc
-CFLAGS	= -fsanitize=address -g3 -Wall -Werror -Wextra -O2
+CFLAGS	= -Wall -Werror -Wextra -O2
 LIBFLAGS= -framework OpenGL -framework AppKit
 
 all: maker ${NAME}
