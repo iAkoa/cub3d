@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:40:05 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 15:42:33 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include "../draw/draw.h"
 #include "../init/init.h"
 
-
-float	e_set_ra_before_loop(float ra, float pa)
+double	e_set_ra_before_loop(double ra, double pa)
 {
 	ra = pa - (M_PI / 6);
 	if (ra < 0)
@@ -26,12 +25,12 @@ float	e_set_ra_before_loop(float ra, float pa)
 	return (ra);
 }
 
-float	e_set_ra_end_of_loop(float ra)
+double	e_set_ra_end_of_loop(double ra)
 {
 	ra = ra + ((2 * M_PI / 6) / 1920);
-	if (ra < 0)
+	if (ra <= 0)
 		ra += 2 * M_PI;
-	if (ra > 2 * M_PI)
+	if (ra >= 2 * M_PI)
 		ra -= 2 * M_PI;
 	return (ra);
 }
@@ -57,7 +56,6 @@ unsigned int	e_get_value(t_engine *engine, t_img *img, int y, int x)
 	return (((unsigned int *)img->addr)[texy * img->line_length / 4 + texx]);
 }
 
-
 int	e_check_ray(t_engine *engine)
 {
 	if (sqrtf((powf(engine->ray_h.rx - engine->posx, 2)
@@ -69,4 +67,3 @@ int	e_check_ray(t_engine *engine)
 		return (0);
 	return (0);
 }
-

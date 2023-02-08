@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:16:13 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:27:34 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 18:10:59 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "dhook.h"
 #include "../draw/draw.h"
 
-int dh_keyloop(t_data *data)
+int	dh_keyloop(t_data *data)
 {
 	if (data->tab_keycode[4] == 1)
 	{
@@ -26,5 +26,5 @@ int dh_keyloop(t_data *data)
 	dh_translation(data);
 	dh_rotation(data);
 	draw(data);
-	return(0);
+	return (0);
 }

@@ -6,10 +6,9 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:43:22 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 18:32:45 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/cub3d.h"
 #include "dhook.h"
@@ -18,7 +17,6 @@
 
 void	dh_moove_forward(t_data *data, t_engine *engine)
 {
-
 	if (engine->pdx < 0)
 		engine->collision.xo = -10;
 	else
@@ -75,8 +73,6 @@ void	dh_moove_backward(t_data *data, t_engine *engine)
 
 void	dh_moove_right(t_data *data, t_engine *engine)
 {
-	// printf("engine->posx = %f\n", engine->posx);
-	// printf("engine->posy = %f\n", engine->posy);
 	set_xo_and_yo_for_side_walk(engine);
 	engine->collision.ym_pos = engine->posy / 32.0;
 	engine->collision.xm_pos = engine->posx / 32.0;
@@ -94,8 +90,6 @@ void	dh_moove_right(t_data *data, t_engine *engine)
 		data->minimap.moove_mapY += -engine->pdx;
 		engine->posy += engine->pdx;
 	}
-	// printf("engine->posx = %f\n", engine->posx);
-	// printf("engine->posy = %f\n", engine->posy);
 }
 
 void	dh_moove_left(t_data *data, t_engine *engine)

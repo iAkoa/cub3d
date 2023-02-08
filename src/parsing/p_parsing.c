@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:48:43 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 19:25:02 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	p_parsing_color_sky(t_data *data, char *line)
 {
 	char	**line_split;
 	char	**color_split;
+
 	line = gc_strtrim(&data->track, line, "\n");
 	line_split = gc_split(&data->track, line, ' ');
 	if (ft_strlen_split(line_split) != 2)
@@ -36,7 +37,6 @@ static void	p_parsing_color_sky(t_data *data, char *line)
 	data->parsing.checker += 1;
 }
 
-/*parsing floor color*/
 static void	p_parsing_color_floor(t_data *data, char *line)
 {
 	char	**line_split;

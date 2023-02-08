@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:31:30 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 19:24:27 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	p_check_path(t_data *data, char *line, int checkpoint)
 	}
 }
 
-/*verifie NO WE SO EA*/
 int	p_strcmp(char *line, char *cmp)
 {
 	int	i;

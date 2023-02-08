@@ -6,14 +6,13 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:37:54 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 18:36:23 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "dhook.h"
 #include "../draw/draw.h"
-
 
 void	set_xo_and_yo_for_side_walk(t_engine *engine)
 {
@@ -39,7 +38,7 @@ void	set_xo_and_yo_for_side_walk(t_engine *engine)
 	}
 }
 
-void dh_translation(t_data *data)
+void	dh_translation(t_data *data)
 {
 	if (data->tab_keycode[0] == 1)
 		dh_moove_left(data, &data->engine);
@@ -51,7 +50,7 @@ void dh_translation(t_data *data)
 		dh_moove_backward(data, &data->engine);
 }
 
-void dh_rotation(t_data *data)
+void	dh_rotation(t_data *data)
 {
 	if (data->tab_keycode[5] == 1)
 	{
@@ -65,7 +64,7 @@ void dh_rotation(t_data *data)
 	}
 }
 
-int dh_keyrelease(int keycode, t_data *data)
+int	dh_keyrelease(int keycode, t_data *data)
 {
 	printf("test %i\n", keycode);
 	if (keycode == A)

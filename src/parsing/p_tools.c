@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 05:34:49 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 14:38:01 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	p_set_angle(t_data *data, t_map *map, int i)
 	if (map[i].z == EAST)
 		data->minimap.player_angle = 0;
 	else if (map[i].z == NORTH)
-		data->minimap.player_angle = -M_PI_2;
+		data->minimap.player_angle = 3 * M_PI_2;
 	else if (map[i].z == WEST)
 		data->minimap.player_angle = M_PI;
 	else if (map[i].z == SOUTH)
 		data->minimap.player_angle = M_PI_2;
-	//data->minimap.player_angle += 1;
 }
 
 int	ft_strlen_split(char **str)

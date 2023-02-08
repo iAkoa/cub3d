@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:44:39 by rmattheo          #+#    #+#             */
-/*   Updated: 2023/02/03 17:05:15 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 16:08:44 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ struct s_minimap
 
 struct s_rayv
 {
-	float	rx;
-	float	ry;
-	float	xo;
-	float	yo;
+	double	rx;
+	double	ry;
+	double	xo;
+	double	yo;
 	int		mx;
 	int		my;
 	int		mp;
@@ -153,10 +153,10 @@ struct s_collision
 
 struct s_rayh
 {
-	float	rx;
-	float	ry;
-	float	xo;
-	float	yo;
+	double	rx;
+	double	ry;
+	double	xo;
+	double	yo;
 	int		mx;
 	int		my;
 	int		mp;
@@ -172,32 +172,32 @@ struct s_engine
 	int			v_check;
 	int			h_check;
 	int			dof_limit;
-	float		p2;
-	float		p3;
-	float		ra;
-	float		atan;
-	float		ntan;
-	float		ty_off;
-	float		lineo;
-	float		lineh;
-	float		x;
-	float		y;
-	float		z;
-	float		player_angle;
-	float		pdx;
-	float		pdy;
-	float		posx;
-	float		posy;
-	float		x1;
-	float		x2;
-	float		y1;
-	float		y2;
-	float		max;
-	float		bresenx;
-	float		breseny;
-	float		raylx;
-	float		rayly;
-	float		dist;
+	double		p2;
+	double		p3;
+	double		ra;
+	double		atan;
+	double		ntan;
+	double		ty_off;
+	double		lineo;
+	double		lineh;
+	double		x;
+	double		y;
+	double		z;
+	double		player_angle;
+	double		pdx;
+	double		pdy;
+	double		posx;
+	double		posy;
+	double		x1;
+	double		x2;
+	double		y1;
+	double		y2;
+	double		max;
+	double		bresenx;
+	double		breseny;
+	double		raylx;
+	double		rayly;
+	double		dist;
 	int			fd;
 	t_img		img_n;
 	t_img		img_s;
@@ -274,13 +274,16 @@ struct s_map
 # define BOTTOM 4
 
 /*KEYCODE*/
-# define ESC 53
+# define ESC 65307
+// # define ESC 53
 # define TAB 48
 
-# define A 0
+# define A 97
+// # define A 0
 # define B 11
 # define C 8
-# define D 2
+# define D 100
+// # define D 2
 # define E 14
 # define F 3
 # define G 9
@@ -295,11 +298,13 @@ struct s_map
 # define P 35
 # define Q 12
 # define R 15
-# define S 1
+# define S 115
+// # define S 1
 # define T 17
 # define U 32
 # define V 9
-# define W 13
+# define W 119
+// # define W 13
 # define X 7
 # define Y 16
 # define Z 6
@@ -317,9 +322,11 @@ struct s_map
 # define LESS 78
 # define MORE 69
 
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
-# define DOWN_ARROW 125
-# define UP_ARROW 126
+// # define LEFT_ARROW 123
+// # define RIGHT_ARROW 124
+// # define DOWN_ARROW 125
+// # define UP_ARROW 126
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 #endif

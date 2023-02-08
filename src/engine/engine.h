@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by pat               #+#    #+#             */
-/*   Updated: 2023/01/30 11:39:19 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 15:42:33 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 # define ENGINE_H
 
 /*RAYCASTING*/
-void			e_raycasting(t_data * data, t_engine *engine);
-void			e_vertical_line_check(t_data *data, t_engine *engine, float ra, float ntan);
+void			e_raycasting(t_data *data, t_engine *engine);
+void			e_vertical_line_check(t_data *data, t_engine *engine,
+					double ra, double ntan);
 /*HORIZONTAL ENGINE*/
-void			e_size_h_rayon(t_engine *engine, float rx, float ry, float ra);
-void			e_horizontal_line_check(t_data *data, t_engine *engine, float ra, float atan);
+void			e_size_h_rayon(t_engine *engine, double rx, double ry, double ra);
+void			e_horizontal_line_check(t_data *data, t_engine *engine,
+					double ra, double atan);
 /*VERTICAL ENGINE*/
-void			e_size_v_rayon(t_engine *engine, float rx, float ry, float ra);
+void			e_size_v_rayon(t_engine *engine, double rx, double ry, double ra);
 
 /*UTILS*/
-float			e_set_ra_before_loop(float ra, float pa);
-float			e_set_ra_end_of_loop(float ra);
+double			e_set_ra_before_loop(double ra, double pa);
+double			e_set_ra_end_of_loop(double ra);
 unsigned int	e_get_value(t_engine *engine, t_img *img, int y, int x);
 int				e_check_ray(t_engine *engine);
 

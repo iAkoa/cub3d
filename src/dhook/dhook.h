@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 07:49:28 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 15:48:02 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 18:25:58 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int		dh_keyhook(int keycode, t_data *data);
 int		check_wall(t_data *data, int posX, int posY, int side);
 void	dh_rotation(t_data *data);
 void	dh_translation(t_data *data);
-void	dh_translation_minimap(t_data *data);
-void	dh_bonus(t_data *data,int keycode);
+void	dh_bonus(t_data *data, int keycode);
 void	dh_moove_forward(t_data *data, t_engine *engine);
 void	dh_moove_backward(t_data *data, t_engine *engine);
 void	dh_moove_right(t_data *data, t_engine *engine);

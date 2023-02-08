@@ -33,7 +33,7 @@ SRCS	+=	src/main.c
 
 OBJS	= ${SRCS:.c=.o}
 CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra -O2
+CFLAGS	= -Wall -Werror -Wextra -O3
 LIBFLAGS= -framework OpenGL -framework AppKit
 
 all: maker ${NAME}

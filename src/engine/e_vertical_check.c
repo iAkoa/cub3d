@@ -6,7 +6,7 @@
 /*   By: pat <pat@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 03:22:25 by pat               #+#    #+#             */
-/*   Updated: 2023/02/03 17:03:36 by pat              ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 15:58:36 by pat              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "../draw/draw.h"
 #include "../init/init.h"
 
-
-void	e_size_v_rayon(t_engine *engine, float rx, float ry, float ra)
+void	e_size_v_rayon(t_engine *engine, double rx, double ry, double ra)
 {
-	float	c;
+	double	c;
+
 	(void)ra;
 	c = 0;
 	c = sqrtf((powf(rx - engine->posx, 2) + powf(ry - engine->posy, 2)));
@@ -36,18 +36,18 @@ static void	e_vertical_mx_my_check(t_data *data, t_engine *engine)
 		engine->ray_v.my = data->parsing.y_max - 1;
 }
 
-static void	e_set_ray_v_case_1(t_engine *engine, float ntan)
+static void	e_set_ray_v_case_1(t_engine *engine, double ntan)
 {
-	engine->ray_v.rx = (((int)engine->posx >> 5) << 5) - 0.0001;
+	engine->ray_v.rx = (((int)((engine->posx)) >> 5) << 5) - 0.001;
 	engine->ray_v.ry = (engine->posx - engine->ray_v.rx) * ntan + engine->posy;
 	engine->ray_v.xo = -32;
 	engine->ray_v.yo = (-engine->ray_v.xo * ntan);
 	return ;
 }
 
-static void	e_set_ray_v_case_2(t_engine *engine, float ntan)
+static void	e_set_ray_v_case_2(t_engine *engine, double ntan)
 {
-	engine->ray_v.rx = (((int)engine->posx >>5)<<5) + 32;
+	engine->ray_v.rx = ((((int)(engine->posx)) >> 5) << 5) + 32;
 	engine->ray_v.ry = (engine->posx - engine->ray_v.rx) * ntan + engine->posy;
 	engine->ray_v.xo = 32;
 	engine->ray_v.yo = (-engine->ray_v.xo * ntan);
@@ -62,9 +62,8 @@ static void	e_set_ray_v_case_3(t_engine *engine)
 	return ;
 }
 
-
-
-void	e_vertical_line_check(t_data *data, t_engine *engine, float ra, float ntan)
+void	e_vertical_line_check(t_data *data, t_engine *engine,
+		double ra, double ntan)
 {
 	if ((ra > engine->p2) && (ra < engine->p3))
 		e_set_ray_v_case_1(engine, ntan);
@@ -77,12 +76,12 @@ void	e_vertical_line_check(t_data *data, t_engine *engine, float ra, float ntan)
 		engine->ray_v.mx = ((int)(engine->ray_v.rx) >> 5);
 		engine->ray_v.my = ((int)(engine->ray_v.ry) >> 5);
 		e_vertical_mx_my_check(data, &(data->engine));
-		engine->ray_v.mp = engine->ray_v.my * data->parsing.x_max + engine->ray_v.mx;
-		if (engine->ray_v.mp > 0 && (engine->ray_v.mp < (data->parsing.x_max * data->parsing.y_max) - 1) && data->map[engine->ray_v.mp].z == WALL)
-		{
-			// printf("cub->data.width * cub->data.map_data.map_size = %i\n", data->draw.map_Xmax * data->draw.map_Ymax);
+		engine->ray_v.mp = engine->ray_v.my * data->parsing.x_max
+			+ engine->ray_v.mx;
+		if (engine->ray_v.mp > 0 && (engine->ray_v.mp
+				< (data->parsing.x_max * data->parsing.y_max) - 1)
+			&& data->map[engine->ray_v.mp].z == WALL)
 			engine->ray_v.dof = engine->dof_limit;
-		}
 		else
 		{
 			engine->ray_v.rx += engine->ray_v.xo;
