@@ -33,14 +33,13 @@ void	e_set_texture_struct(t_data *data)
 			&(data->engine.img_e.height));
 }
 
-static int	ft_exit(void *param)
+static int	ft_exit(t_data *data)
 {
-	(void)param;
-	exit(0);
+	e_error(data, NULL);
 	return (0);
 }
 
-int	check_name(char *av)
+int	check_name(t_data *data, char *av)
 {
 	int	i;
 
@@ -50,7 +49,7 @@ int	check_name(char *av)
 	if (!av[i - 5] || av[i - 4] != '.' || av[i - 3] != 'c' || av[i - 2] != 'u'
 		|| av[i - 1] != 'b')
 	{
-		ft_putendl_fd("Wrong map name", 2);
+		e_error(data, "Wrong map name");
 		return (0);
 	}
 	return (1);
@@ -64,19 +63,19 @@ int	main(int ac, char **av)
 
 	track = NULL;
 	map = NULL;
-	if (ac != 2 || check_name(av[1]) != 1)
-		return (0);
 	init_data(&data, track, map);
-	init_window(&data);
+	if (ac != 2 || check_name(&data, av[1]) != 1)
+		e_error(&data, "tu sais pas utiliser le programme");
+	ft_bzero(&data, sizeof(t_data));
 	init_parsing(&data);
-	init_minimap_engine(&data);
+	init_minimap_engine(&data); 
 	data.ac = ac;
 	data.av = av;
 	if (!p_parsing(&data, av[1]))
 		return (0);
-	p_set_texture_struct(&data.engine, &data);
+	init_window(&data);
 	init_engine(&data);
-	printf("sdfsdfsdf\n");
+	p_set_texture_struct(&data.engine, &data);
 	draw(&data);
 	mlx_hook(data.window.win_ptr, 17, 0, ft_exit, &data);
 	mlx_hook(data.window.win_ptr, 02, 1L << 0, dh_keyhook, &data);

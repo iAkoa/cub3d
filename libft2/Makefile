@@ -27,7 +27,6 @@ SRCS	=	ft_check/ft_isalpha.c			\
 			ft_mem/ft_memset.c				\
 			ft_mem/ft_memcpy.c				\
 			ft_mem/ft_memmove.c				\
-			ft_mem/ft_memchr.c				\
 			ft_mem/ft_memcmp.c				\
 			ft_atoi_itoa/ft_itoa.c			\
 			ft_atoi_itoa/gc_itoa.c			\
@@ -91,7 +90,7 @@ OBJS    = ${SRCS:.c=.o}
 
 CC        = gcc
 
-CFLAGS    = -Wall -Wextra -Werror -O2
+CFLAGS    = -Wall -Wextra -Werror -O3
 
 %o : %c ${HEADER} Makefile
 		${CC} ${CFLAGS} -c $< -o $@

@@ -20,10 +20,12 @@ int	ft_putstr_fd(char *s, int fd)
 	i = 0;
 	if (!s)
 	{
-		write(fd, "(null)", 6);
+		if (!write(fd, "(null)", 6))
+			return (0);
 		return (6);
 	}
-	write(fd, s, ft_strlen(s));
+	if (!write(fd, s, ft_strlen(s)))
+		return (0);
 	i = ft_strlen(s);
 	return (i);
 }

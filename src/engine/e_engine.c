@@ -34,10 +34,8 @@ void	e_draw_walls(t_data *data, t_engine *engine, double ra, double j)
 void	e_raycasting(t_data *data, t_engine *engine)
 {
 	int		r;
-	// double	j;
 
 	r = -1;
-	// j = 0;
 	engine->ra = 0.0;
 	engine->ra = e_set_ra_before_loop(engine->ra, engine->player_angle);
 	while (r++ < 1919)

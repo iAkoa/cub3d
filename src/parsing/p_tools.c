@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 #include "parsing.h"
-#include "../error/error.h"
+
 
 void	p_set_angle(t_data *data, t_map *map, int i)
 {
@@ -40,7 +40,7 @@ char	*p_gnl_secure(t_data *data, char *line, char *str)
 {
 	line = gc_get_next_line(&data->track, data->parsing.fd);
 	if (line == NULL)
-		error(data, str);
+		e_error(data, str);
 	data->parsing.count++;
 	return (line);
 }
@@ -49,7 +49,7 @@ char	*p_gnl_jnl_secure(t_data *data, char *line, char *str)
 {
 	line = gc_get_next_line(&data->track, data->parsing.fd);
 	if (line == NULL)
-		error(data, str);
+		e_error(data, str);
 	data->parsing.count++;
 	if (line[0] == '\n' && ft_strlen(line) == 1)
 		line = p_gnl_jnl_secure(data, line, str);

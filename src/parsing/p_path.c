@@ -12,7 +12,6 @@
 
 #include "../../include/cub3d.h"
 #include "parsing.h"
-#include "../error/error.h"
 
 void	p_set_texture_struct(t_engine *engine, t_data *data)
 {
@@ -28,6 +27,27 @@ void	p_set_texture_struct(t_engine *engine, t_data *data)
 	engine->img_e.data = mlx_xpm_file_to_image(data->window.mlx_ptr,
 			data->parsing.east_path,
 			&engine->img_e.width, &engine->img_e.height);
+	if (!engine->img_n.data || !engine->img_s.data
+		|| !engine->img_w.data || !engine->img_e.data)
+		e_error(data, "BAD PATH TEXTURE !");
+}
+
+static void	p_check_path_condition(t_data *data, char *line, int checkpoint)
+{
+	if (checkpoint == 2)
+	{
+		data->parsing.checker += 10000;
+		data->parsing.west_path = line;
+		if (open(data->parsing.west_path, O_RDONLY, 777) == -1)
+			e_error(data, "BAD PATH 3!");
+	}
+	if (checkpoint == 3)
+	{
+		data->parsing.checker += 100000;
+		data->parsing.east_path = line;
+		if (open(data->parsing.east_path, O_RDONLY, 777) == -1)
+			e_error(data, "BAD PATH 4!");
+	}
 }
 
 static void	p_check_path(t_data *data, char *line, int checkpoint)
@@ -37,29 +57,16 @@ static void	p_check_path(t_data *data, char *line, int checkpoint)
 		data->parsing.checker += 100;
 		data->parsing.north_path = line;
 		if (open(data->parsing.north_path, O_RDONLY, 777) == -1)
-			error(data, "BAD PATH 2!");
+			e_error(data, "BAD PATH 1!");
 	}
 	if (checkpoint == 1)
 	{
 		data->parsing.checker += 1000;
 		data->parsing.south_path = line;
 		if (open(data->parsing.south_path, O_RDONLY, 777) == -1)
-			error(data, "BAD PATH 2!");
+			e_error(data, "BAD PATH 2!");
 	}
-	if (checkpoint == 2)
-	{
-		data->parsing.checker += 10000;
-		data->parsing.west_path = line;
-		if (open(data->parsing.west_path, O_RDONLY, 777) == -1)
-			error(data, "BAD PATH 3!");
-	}
-	if (checkpoint == 3)
-	{
-		data->parsing.checker += 100000;
-		data->parsing.east_path = line;
-		if (open(data->parsing.east_path, O_RDONLY, 777) == -1)
-			error(data, "BAD PATH 4!");
-	}
+	p_check_path_condition(data, line, checkpoint);
 }
 
 int	p_strcmp(char *line, char *cmp)

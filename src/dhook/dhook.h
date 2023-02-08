@@ -14,7 +14,7 @@
 # define DHOOK_H
 
 int		dh_keyhook(int keycode, t_data *data);
-int		check_wall(t_data *data, int posX, int posY, int side);
+int		check_wall(t_data *data, int posx, int posy, int side);
 void	dh_rotation(t_data *data);
 void	dh_translation(t_data *data);
 void	dh_bonus(t_data *data, int keycode);

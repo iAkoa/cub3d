@@ -39,19 +39,19 @@ void	init_minimap_engine(t_data *data)
 {
 	data->minimap.y = 0;
 	data->minimap.x = 0;
-	data->minimap.posY = 0;
-	data->minimap.posX = 0;
-	data->minimap.dirX = -1;
-	data->minimap.dirY = 0;
-	data->minimap.planeX = 0;
-	data->minimap.planeY = 0.66;
+	data->minimap.posy = 0;
+	data->minimap.posx = 0;
+	data->minimap.dirx = -1;
+	data->minimap.diry = 0;
+	data->minimap.planex = 0;
+	data->minimap.planey = 0.66;
 	data->minimap.y_max_minimap = 40 * 8;
 	data->minimap.x_max_minimap = 40 * 10;
 	data->minimap.x_display = 0;
 	data->minimap.y_display = 0;
 	data->minimap.size_of_bloc = 32;
-	data->minimap.moove_mapX = 0;
-	data->minimap.moove_mapY = 0;
+	data->minimap.moove_mapx = 0;
+	data->minimap.moove_mapy = 0;
 	data->minimap.hit_top = 0;
 	data->minimap.hit_right = 0;
 	data->minimap.hit_left = 0;
@@ -73,8 +73,8 @@ void	init_engine(t_data *data)
 	data->engine.player_angle = data->minimap.player_angle;
 	data->engine.pdx = cos(data->engine.player_angle) * 5;
 	data->engine.pdy = sin(data->engine.player_angle) * 5;
-	data->engine.posx = (data->minimap.posX * 32) + 16;
-	data->engine.posy = (data->minimap.posY * 32) + 16;
+	data->engine.posx = (data->minimap.posx * 32) + 16;
+	data->engine.posy = (data->minimap.posy * 32) + 16;
 }
 
 void	init_parsing(t_data *data)

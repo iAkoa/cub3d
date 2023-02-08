@@ -27,16 +27,12 @@ double	d_floor(t_data *data, double j, double i)
 
 void	d_vertical_wall(t_data *data, t_engine *engine, double j, double i)
 {
-	(void)data;
-		(void)engine;
-			(void)j;
-			(void)i;
-	// if (engine->ray_v.rx < engine->posx)
-	// 	d_my_mlx_pixel_put(data, (int)j, (int)i,
-	// 		e_get_value(engine, &(data->engine.img_e), (int)j, (int)i));
-	// if (engine->ray_v.rx > engine->posx)
-	// 	d_my_mlx_pixel_put(data, (int)j, (int)i,
-	// 		e_get_value(engine, &(data->engine.img_w), (int)j, (int)i));
+	if (engine->ray_v.rx < engine->posx)
+		d_my_mlx_pixel_put(data, (int)j, (int)i,
+			e_get_value(engine, &(data->engine.img_e), (int)j, (int)i));
+	if (engine->ray_v.rx > engine->posx)
+		d_my_mlx_pixel_put(data, (int)j, (int)i,
+			e_get_value(engine, &(data->engine.img_w), (int)j, (int)i));
 }
 
 double	d_wall(t_data *data, t_engine *engine, double j, double i)

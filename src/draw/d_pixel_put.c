@@ -76,27 +76,10 @@ int	d_my_mlx_pixel_put_view(t_data *data, int x, int y, int color)
 int	d_my_mlx_pixel_put_player(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-	char	*check_hit;
 
 	if (x + 3 > data->minimap.x_max_minimap
 		|| y + 3 > data->minimap.y_max_minimap || x - 3 < 0 || y - 3 < 0)
 		return (0);
-	check_hit = data->window.addr + (y * data->window.line_length
-			+ (x + 3) * (data->window.bits_per_pixel / 8));
-	if (*(unsigned int *)check_hit == WALL_COLOR)
-		data->minimap.hit_right = 1;
-	check_hit = data->window.addr + (y * data->window.line_length
-			+ (x - 3) * (data->window.bits_per_pixel / 8));
-	if (*(unsigned int *)check_hit == WALL_COLOR)
-		data->minimap.hit_left = 1;
-	check_hit = data->window.addr + ((y + 3) * data->window.line_length
-			+ x * (data->window.bits_per_pixel / 8));
-	if (*(unsigned int *)check_hit == WALL_COLOR)
-		data->minimap.hit_bottom = 1;
-	check_hit = data->window.addr + ((y - 3) * data->window.line_length
-			+ x * (data->window.bits_per_pixel / 8));
-	if (*(unsigned int *)check_hit == WALL_COLOR)
-		data->minimap.hit_top = 1;
 	dst = data->window.addr + (y * data->window.line_length
 			+ x * (data->window.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;

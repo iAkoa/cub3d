@@ -18,11 +18,13 @@ void			e_raycasting(t_data *data, t_engine *engine);
 void			e_vertical_line_check(t_data *data, t_engine *engine,
 					double ra, double ntan);
 /*HORIZONTAL ENGINE*/
-void			e_size_h_rayon(t_engine *engine, double rx, double ry, double ra);
+void			e_size_h_rayon(t_engine *engine,
+					double rx, double ry, double ra);
 void			e_horizontal_line_check(t_data *data, t_engine *engine,
 					double ra, double atan);
 /*VERTICAL ENGINE*/
-void			e_size_v_rayon(t_engine *engine, double rx, double ry, double ra);
+void			e_size_v_rayon(t_engine *engine,
+					double rx, double ry, double ra);
 
 /*UTILS*/
 double			e_set_ra_before_loop(double ra, double pa);
@@ -31,7 +33,6 @@ unsigned int	e_get_value(t_engine *engine, t_img *img, int y, int x);
 int				e_check_ray(t_engine *engine);
 
 /*MINIMAP*/
-void			e_bresenham(t_data *data, int x1, int y1, int x2, int y2);
 void			e_minimap(t_data *data, t_minimap minimap, t_map **map);
 
 /*COLLISION*/

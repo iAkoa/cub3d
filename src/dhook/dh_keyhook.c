@@ -66,7 +66,6 @@ void	dh_rotation(t_data *data)
 
 int	dh_keyrelease(int keycode, t_data *data)
 {
-	printf("test %i\n", keycode);
 	if (keycode == A)
 		data->tab_keycode[0] = 0;
 	if (keycode == W)

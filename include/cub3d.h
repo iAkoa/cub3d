@@ -24,7 +24,7 @@ typedef struct s_data		t_data;
 typedef struct s_window		t_window;
 typedef struct s_map		t_map;
 typedef struct s_parsing	t_parsing;
-typedef struct s_minimap		t_minimap;
+typedef struct s_minimap	t_minimap;
 typedef struct s_dhook		t_dhook;
 typedef struct s_fix		t_fix;
 typedef struct s_engine		t_engine;
@@ -33,29 +33,29 @@ typedef struct s_rayh		t_rayh;
 typedef struct s_collision	t_collision;
 typedef struct s_img		t_img;
 
-struct s_parsing
+struct	s_parsing
 {
-	int	fd;
-	char *file;
-	int	count;
-	int	size_mal;
-	int	y_max;
-	int	x_max;
-	int	sky_red;
-	int sky_green;
-	int sky_blue;
-	int	floor_red;
-	int floor_green;
-	int floor_blue;
-	int f_color;
-	int s_color;
-	char *east_path;
-	char *west_path;
-	char *south_path;
-	char *north_path;
-	int	start_spawn;
-	int	checker;
-	int	test;
+	int		fd;
+	char	*file;
+	int		count;
+	int		size_mal;
+	int		y_max;
+	int		x_max;
+	int		sky_red;
+	int		sky_green;
+	int		sky_blue;
+	int		floor_red;
+	int		floor_green;
+	int		floor_blue;
+	int		f_color;
+	int		s_color;
+	char	*east_path;
+	char	*west_path;
+	char	*south_path;
+	char	*north_path;
+	int		start_spawn;
+	int		checker;
+	int		test;
 };
 
 typedef struct s_img
@@ -86,40 +86,40 @@ struct s_window
 
 struct s_minimap
 {
-	int	x_max_minimap;
-	int	y_max_minimap;
-	int	x_display;
-	int y_display;
-	int	size_of_bloc;
-	int	x;
-	int	y;
-	double	posX;
-	double	posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	int	posY_display;
-	int	posX_display;
+	int		x_max_minimap;
+	int		y_max_minimap;
+	int		x_display;
+	int		y_display;
+	int		size_of_bloc;
+	int		x;
+	int		y;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	int		posy_display;
+	int		posx_display;
 	double	player_angle;
-	int	ref_posX;
-	int	ref_posY;
-	double moove_mapX;
-	double moove_mapY;
-	int	hit_top;
-	int	hit_bottom;
-	int	hit_left;
-	int	hit_right;
-	int size_playerxMax;;
-	int size_playerxMin;
-	int size_playeryMax;
-	int size_playeryMin;
-	int size_check;
-	int map_Xmax;
-	int map_Ymax;
-	int map_Xmin;
-	int map_Ymin;
-	int map_size;
+	int		ref_posx;
+	int		ref_posy;
+	double	moove_mapx;
+	double	moove_mapy;
+	int		hit_top;
+	int		hit_bottom;
+	int		hit_left;
+	int		hit_right;
+	int		size_playerxmax;
+	int		size_playerxmin;
+	int		size_playerymax;
+	int		size_playerymin;
+	int		size_check;
+	int		map_xmax;
+	int		map_ymax;
+	int		map_xmin;
+	int		map_ymin;
+	int		map_size;
 };
 
 struct s_rayv
@@ -133,7 +133,6 @@ struct s_rayv
 	int		mp;
 	int		dof;
 };
-
 
 struct s_collision
 {
@@ -242,7 +241,7 @@ struct s_map
 	int		stop;
 };
 
-
+void	e_error(t_data *data, char *str);
 
 # define WALL_COLOR 0x00C4C5B2
 # define FLOOR_COLOR 0x00FFFFFE
@@ -260,14 +259,13 @@ struct s_map
 # define HIT_LEFT 3
 # define HIT_RIGHT 4
 
-#define EMPTY 0
-#define FLOOR 1
-#define WALL 2
-#define EAST 3
-#define NORTH 4
-#define WEST 5
-#define SOUTH 6
-
+# define EMPTY 0
+# define FLOOR 1
+# define WALL 2
+# define EAST 3
+# define NORTH 4
+# define WEST 5
+# define SOUTH 6
 # define LEFT 1
 # define RIGHT 2
 # define TOP 3

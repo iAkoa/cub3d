@@ -12,7 +12,6 @@
 
 #include "../../include/cub3d.h"
 #include "parsing.h"
-#include "../error/error.h"
 
 static void	check_left(t_data *data, t_map *map, int checkpoint)
 {
@@ -24,10 +23,10 @@ static void	check_left(t_data *data, t_map *map, int checkpoint)
 		if (map[i].z == WALL)
 			return ;
 		else if (map[i].z == EMPTY)
-			error(data, "MAP OPEN ON LEFT!");
+			e_error(data, "MAP OPEN ON LEFT!");
 		i--;
 	}
-	error(data, "MAP OPEN ON THE LEFT !");
+	e_error(data, "MAP OPEN ON THE LEFT !");
 }
 
 static void	check_right(t_data *data, t_map *map, int checkpoint)
@@ -40,10 +39,10 @@ static void	check_right(t_data *data, t_map *map, int checkpoint)
 		if (map[i].z == WALL)
 			return ;
 		else if (map[i].z == EMPTY)
-			error(data, "MAP OPEN ON THE RIGHT!");
+			e_error(data, "MAP OPEN ON THE RIGHT!");
 		i++;
 	}
-	error(data, "MAP OPEN ONT THE RIGHT !");
+	e_error(data, "MAP OPEN ONT THE RIGHT !");
 }
 
 static void	check_top(t_data *data, t_map *map, int checkpoint)
@@ -56,10 +55,10 @@ static void	check_top(t_data *data, t_map *map, int checkpoint)
 		if (map[i].z == WALL && map[i].x == map[checkpoint].x)
 			return ;
 		else if (map[i].z == EMPTY && map[i].x == map[checkpoint].x)
-			error(data, "MAP OPEN ON THE TOP!");
+			e_error(data, "MAP OPEN ON THE TOP!");
 		i--;
 	}
-	error(data, "MAP OPEN ON THE TOP !");
+	e_error(data, "MAP OPEN ON THE TOP !");
 }
 
 static void	check_bottom(t_data *data, t_map *map, int checkpoint)
@@ -73,10 +72,10 @@ static void	check_bottom(t_data *data, t_map *map, int checkpoint)
 			&& map[i].stop != 1)
 			return ;
 		else if (map[i].z == EMPTY && map[i].x == map[checkpoint].x)
-			error(data, "MAP OPEN ON THE BOTTOM!");
+			e_error(data, "MAP OPEN ON THE BOTTOM!");
 		i++;
 	}
-	error(data, "MAP OPEN ON THE BOTTOM !");
+	e_error(data, "MAP OPEN ON THE BOTTOM !");
 }
 
 void	p_check_map(t_data *data, t_map *map)
@@ -86,7 +85,8 @@ void	p_check_map(t_data *data, t_map *map)
 	i = 0;
 	while (!map[i].stop)
 	{
-		if (map[i].z == FLOOR)
+		if (map[i].z == FLOOR || map[i].z == WEST
+			|| map[i].z == NORTH || map[i].z == SOUTH || map[i].z == EAST)
 		{
 			check_left(data, map, i);
 			check_right(data, map, i);

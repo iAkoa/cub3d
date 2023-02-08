@@ -32,13 +32,13 @@ void	dh_moove_forward(t_data *data, t_engine *engine)
 	if (e_check_collision(data->map2d, engine->collision.ym_pos,
 			engine->collision.xo_add) == 0)
 	{
-		data->minimap.moove_mapX -= engine->pdx;
+		data->minimap.moove_mapx -= engine->pdx;
 		engine->posx += engine->pdx;
 	}
 	if (e_check_collision(data->map2d, engine->collision.yo_add,
 			engine->collision.xm_pos) == 0)
 	{
-		data->minimap.moove_mapY -= engine->pdy;
+		data->minimap.moove_mapy -= engine->pdy;
 		engine->posy += engine->pdy;
 	}
 }
@@ -60,13 +60,13 @@ void	dh_moove_backward(t_data *data, t_engine *engine)
 	if (e_check_collision(data->map2d, engine->collision.ym_pos,
 			engine->collision.xo_sub) == 0)
 	{
-		data->minimap.moove_mapX += engine->pdx;
+		data->minimap.moove_mapx += engine->pdx;
 		engine->posx -= engine->pdx;
 	}
 	if (e_check_collision(data->map2d, engine->collision.yo_sub,
 			engine->collision.xm_pos) == 0)
 	{
-		data->minimap.moove_mapY += engine->pdy;
+		data->minimap.moove_mapy += engine->pdy;
 		engine->posy -= engine->pdy;
 	}
 }
@@ -81,13 +81,13 @@ void	dh_moove_right(t_data *data, t_engine *engine)
 	if (e_check_collision(data->map2d, engine->collision.ym_pos,
 			engine->collision.xo_right) == 0)
 	{
-		data->minimap.moove_mapX += engine->pdy;
+		data->minimap.moove_mapx += engine->pdy;
 		engine->posx += -engine->pdy;
 	}
 	if (e_check_collision(data->map2d, engine->collision.yo_right,
 			engine->collision.xm_pos) == 0)
 	{
-		data->minimap.moove_mapY += -engine->pdx;
+		data->minimap.moove_mapy += -engine->pdx;
 		engine->posy += engine->pdx;
 	}
 }
@@ -102,13 +102,13 @@ void	dh_moove_left(t_data *data, t_engine *engine)
 	if (e_check_collision(data->map2d, engine->collision.ym_pos,
 			engine->collision.xo_left) == 0)
 	{
-			data->minimap.moove_mapX += -engine->pdy;
+		data->minimap.moove_mapx += -engine->pdy;
 		engine->posx += engine->pdy;
 	}
 	if (e_check_collision(data->map2d, engine->collision.yo_left,
 			engine->collision.xm_pos) == 0)
 	{
-		data->minimap.moove_mapY += engine->pdx;
+		data->minimap.moove_mapy += engine->pdx;
 		engine->posy += -engine->pdx;
 	}
 }

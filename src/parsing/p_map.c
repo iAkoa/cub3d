@@ -12,7 +12,6 @@
 
 #include "../../include/cub3d.h"
 #include "parsing.h"
-#include "../error/error.h"
 
 void	p_startspawn(t_data *data, t_map *map)
 {
@@ -26,21 +25,21 @@ void	p_startspawn(t_data *data, t_map *map)
 		if (map[i].z != EMPTY && map[i].z != FLOOR && map[i].z != WALL)
 		{
 			data->parsing.start_spawn = i;
-			data->minimap.posX = map[i].x;
-			data->minimap.posY = map[i].y;
-			data->minimap.ref_posX
-				= data->minimap.posX * data->minimap.size_of_bloc;
-			data->minimap.ref_posY
-				= data->minimap.posY * data->minimap.size_of_bloc;
+			data->minimap.posx = map[i].x;
+			data->minimap.posy = map[i].y;
+			data->minimap.ref_posx
+				= data->minimap.posx * data->minimap.size_of_bloc;
+			data->minimap.ref_posy
+				= data->minimap.posy * data->minimap.size_of_bloc;
 			p_set_angle(data, map, i);
 			count++;
 		}
 	}
 	if (count > 1)
-		error(data, "U CAN'T SPAWN EVERYWHERE !");
+		e_error(data, "U CAN'T SPAWN EVERYWHERE !");
 	if (count == 1)
 		return ;
-	error(data, "NO SPAWN !");
+	e_error(data, "NO SPAWN !");
 }
 
 static t_map	*p_get_map_malloc(t_data *data, t_map *map, char *line)
@@ -86,7 +85,7 @@ static void	p_fill_map(t_data *data, t_map *map, char *line, int x)
 	else if (line[x] == 'S')
 		map->z = SOUTH;
 	else
-		error(data, gc_strjoin(&data->track, line, " IS INCORRECT LINE!"));
+		e_error(data, gc_strjoin(&data->track, line, " IS INCORRECT LINE!"));
 }
 
 static t_map	*add_line_map(t_data *data, t_map *map, char *line, int y)

@@ -33,7 +33,7 @@ int	ft_atoi(const char *str)
 	res = 0;
 	neg = 1;
 	if (!*str)
-		return (0);
+		return (-1);
 	while (ft_whitespace(*str) > 0)
 		str++;
 	if (*str == '-')
@@ -41,10 +41,10 @@ int	ft_atoi(const char *str)
 		neg = -neg;
 		str++;
 	}
-	else if (*str == '+')
-		str++;
-	while (*str && ft_isdigit(*str) > 0)
+	while (*str)
 	{
+		if (*str < '0' || *str > '9')
+			return (-1);
 		res = res * 10 + (*str) - 48;
 		str++;
 		if (res > 2147483648)

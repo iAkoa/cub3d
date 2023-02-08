@@ -21,7 +21,7 @@ void	*gc_calloc(size_t count, size_t size, t_track **track)
 	tot = size * count;
 	dst = malloc(tot);
 	if (!(dst))
-		return (NULL);
+		gc_error(track);
 	ft_bzero(dst, tot);
 	gc_add_mal(track, (void **)&dst);
 	return (dst);

@@ -24,7 +24,8 @@ int	ft_putptr_rec(unsigned long nbr)
 
 int	ft_putptr(unsigned long long nbr, int i)
 {
-	write(1, "0x", 2);
+	if (!write(1, "0x", 2))
+		return (0);
 	i += 2;
 	i += ft_putptr_rec(nbr);
 	return (i);

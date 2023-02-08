@@ -15,17 +15,6 @@
 #include "../draw/draw.h"
 #include "../init/init.h"
 
-void	e_size_v_rayon(t_engine *engine, double rx, double ry, double ra)
-{
-	double	c;
-
-	(void)ra;
-	c = 0;
-	c = sqrtf((powf(rx - engine->posx, 2) + powf(ry - engine->posy, 2)));
-	engine->dist = c;
-	engine->v_check = 1;
-}
-
 static void	e_vertical_mx_my_check(t_data *data, t_engine *engine)
 {
 	if (engine->ray_v.my < 0)

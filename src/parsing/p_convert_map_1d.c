@@ -12,7 +12,6 @@
 
 #include "../../include/cub3d.h"
 #include "parsing.h"
-#include "../error/error.h"
 
 static void	p_fill_map_2d(t_map *map1d, t_map **map2d)
 {

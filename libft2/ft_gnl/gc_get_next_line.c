@@ -68,6 +68,7 @@ char	*gc_get_next_line(t_track **track, int fd)
 	static char	*line;
 	char		*str;
 	char		buffer[BUFFER_SIZE + 1];
+
 	if (read(fd, buffer, 0) == -1 || BUFFER_SIZE < 0)
 		exit(0);
 	if (!(ft_strchr(line, '\n')))

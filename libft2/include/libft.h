@@ -41,7 +41,6 @@ int		ft_toupper(int character);
 int		ft_tolower(int character);
 
 /* ft_mem */
-void	*ft_memchr(const void *memoryBlock, int searchedChar, size_t size);
 int		ft_memcmp(const void *p1, const void *p2, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t size);
 void	*ft_memmove(void *dest, const void *src, size_t size);
