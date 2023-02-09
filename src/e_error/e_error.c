@@ -24,12 +24,12 @@ static void free_mlx(t_data *data)
 			mlx_destroy_image(data->window.mlx_ptr, data->engine.img_w.data);
 		if(data->engine.img_s.data)
 			mlx_destroy_image(data->window.mlx_ptr, data->engine.img_s.data);
-		// if(data->engine.i)
-		// 	mlx_destroy_image(data->window.mlx_ptr, data->img.data);
+		if(data->window.img)
+			mlx_destroy_image(data->window.mlx_ptr, data->window.img);
 		if (data->window.win_ptr)
 			mlx_destroy_window(data->window.mlx_ptr, data->window.win_ptr);
-		mlx_destroy_display(data->window.win_ptr);
-		free(data->window.win_ptr);
+		mlx_destroy_display(data->window.mlx_ptr);
+		free(data->window.mlx_ptr);
 	}
 }
 void	e_error(t_data *data, char *str)
